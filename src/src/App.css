@@ -542,10 +542,8 @@ Navigation Media Query
     transform:scale(1.1);
 }
 
-#slick-product button{
-    position: absolute;
-    top: 30%;
-    outline: none;
+.slick-slider {
+    margin-bottom: 4rem;
 }
 
 .product__brand {
@@ -600,3 +598,63 @@ Navigation Media Query
 
 
 }
+.card-img-top {
+    height: 350px;
+}
+.card{
+    border: none;
+    margin: 1rem;
+    width: 350px;
+
+}
+.card-title {
+    margin-bottom: .75rem;
+    text-align: center;
+    top: 40%;
+    position: relative;
+    color: white;
+    font-weight: 600;
+    font-size: 28px;
+    color: azure;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 10px;
+    background-color: white;
+    padding: 7px;
+}
+.card-text {
+
+    margin: 1rem;
+}
+@media only screen and (max-width:1200px) {
+    .grid-container {
+        grid-template-columns: auto ;
+    }
+    .card{
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .card-img-top {
+        height: 500px;
+    }
+
+}
+@media only screen and (max-width:1200px) {
+    .card-img-top {
+        height: 350px;
+    }
+}
+@media only screen and (max-width:630px) {
+    .grid-container {
+        grid-template-columns: auto;
+    }
+}
+
+    .grid-container > div {
+        background-color: white;
+        text-align: center;
+    }

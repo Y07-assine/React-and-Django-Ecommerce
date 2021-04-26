@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Banner from './Banner';
 import Product from './Products';
+import ListArticles from './ListArticles';
 
 class Home extends Component{
     render(){
@@ -10,6 +11,8 @@ class Home extends Component{
                 <Header />
                 <Banner />
                 <Product />
+                <Product />
+                <ListArticles />
             </>
         )
     }
