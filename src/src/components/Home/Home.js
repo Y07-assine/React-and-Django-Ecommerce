@@ -3,6 +3,7 @@ import Header from './Header';
 import Banner from './Banner';
 import Product from './Products';
 import ListArticles from './ListArticles';
+import Footer from './Footer';
 
 class Home extends Component{
     render(){
@@ -13,6 +14,7 @@ class Home extends Component{
                 <Product />
                 <Product />
                 <ListArticles />
+                <Footer />
             </>
         )
     }
