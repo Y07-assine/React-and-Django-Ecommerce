@@ -21,6 +21,7 @@ class Products extends Component{
     }
     
     componentDidMount(){
+        console.log(this.props);
         this.setState({loading:true});
         axios
             .get(productURL)
@@ -79,7 +80,7 @@ class Products extends Component{
                     )}
                     <Slider {...settings}>
                         {latest.map((product)=>(
-                            <ProductItem product={product} />
+                            <ProductItem product={product} key={product.id}/>
                         ))}
                     </Slider>
                     <button type="submit" class="btn color-primary-bg font-size-20  btn-achat-tout text-center text-white"><a href="#"> Voir tout </a></button>
@@ -96,7 +97,7 @@ class Products extends Component{
                         )}
                         <Slider {...settings}>
                             {products.map((product)=>(
-                                <ProductItem product={product} />
+                                <ProductItem product={product} key={product.id}/>
                             ))}
                         </Slider>
                         <button type="submit" class="btn color-primary-bg font-size-20  btn-achat-tout text-center text-white"><a href="#"> Voir tout </a></button>
@@ -113,7 +114,7 @@ class Products extends Component{
                         )}
                         <Slider {...settings}>
                             {pack.map((product)=>(
-                                <ProductItem product={product} />
+                                <ProductItem product={product} key={product.id} />
                             ))}
                         </Slider>
                         <button type="submit" class="btn color-primary-bg font-size-20  btn-achat-tout text-center text-white"><a href="#"> Voir tout </a></button>
