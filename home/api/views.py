@@ -1,8 +1,8 @@
 from rest_framework.generics import ListAPIView
 from drf_multiple_model.views import ObjectMultipleModelAPIView
-from home.models import Product,Category,ProductFlavor,Flavor
+from home.models import Product,Category,ProductFlavor,Flavor,Brand
 from rest_framework.permissions import AllowAny
-from .serializers import ProductSerializer
+from .serializers import ProductSerializer,CategorySerializer,BrandSerializer
 from django.db.models import F,Q
 
 class ProductListView(ObjectMultipleModelAPIView):
@@ -14,4 +14,9 @@ class ProductListView(ObjectMultipleModelAPIView):
     ]
 
     
-
+class ListProductListView(ObjectMultipleModelAPIView):
+    querylist =[
+        {'queryset':Product.objects.all(),'serializer_class':ProductSerializer,'label':'product'},
+        {'queryset':Category.objects.all(),'serializer_class':CategorySerializer,'label':'category'},
+        {'queryset':Brand.objects.all(),'serializer_class':BrandSerializer,'label':'brand'}
+    ]

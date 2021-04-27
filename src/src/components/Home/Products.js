@@ -21,7 +21,6 @@ class Products extends Component{
     }
     
     componentDidMount(){
-        console.log(this.props);
         this.setState({loading:true});
         axios
             .get(productURL)
