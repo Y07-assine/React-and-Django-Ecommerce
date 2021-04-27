@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import {productURL} from '../../Constant';
 import ProductItem from './ProductItem';
+import {Spinner} from 'react-bootstrap';
 
 
 class Products extends Component{
@@ -24,9 +25,7 @@ class Products extends Component{
         axios
             .get(productURL)
             .then(res=>{
-                this.setState({products:res.data.product});
-                this.setState({pack:res.data.pack});
-                this.setState({latest:res.data.latest_product});
+                this.setState({products:res.data.product,pack:res.data.pack,latest:res.data.latest_product,loading:false});
             })
             .catch(err=>{
                 this.setState({error:err,loading:false})
@@ -73,6 +72,11 @@ class Products extends Component{
                 <div className="container py-5 mt-5">
                     <h4 className="font-baloo font-size-30 text-center ">Nouveaux Produits</h4>
                     <hr />
+                    {loading && (
+                        <Spinner animation="border" role="status" variant="primary">
+                        <span className="sr-only">Loading...</span>
+                      </Spinner>
+                    )}
                     <Slider {...settings}>
                         {latest.map((product)=>(
                             <ProductItem product={product} />
@@ -85,6 +89,11 @@ class Products extends Component{
                     <div className="container py-5 mt-5">
                         <h4 className="font-baloo font-size-30 text-center ">Meilleures Ventes</h4>
                         <hr />
+                        {loading && (
+                        <Spinner animation="border" role="status" variant="primary">
+                        <span className="sr-only">Loading...</span>
+                        </Spinner>
+                        )}
                         <Slider {...settings}>
                             {products.map((product)=>(
                                 <ProductItem product={product} />
@@ -97,6 +106,11 @@ class Products extends Component{
                     <div className="container py-5 mt-5">
                         <h4 className="font-baloo font-size-30 text-center ">Nos Packs</h4>
                         <hr />
+                        {loading && (
+                        <Spinner animation="border" role="status" variant="primary">
+                        <span className="sr-only">Loading...</span>
+                        </Spinner>
+                        )}
                         <Slider {...settings}>
                             {pack.map((product)=>(
                                 <ProductItem product={product} />

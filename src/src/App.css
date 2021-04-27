@@ -835,3 +835,12 @@ NewsLetter
 #slick-product .product img{
     height: 250px;
 }
+
+.spinner-border {
+    width: 4rem;
+    height: 4rem;
+    margin-top: inherit;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+}
