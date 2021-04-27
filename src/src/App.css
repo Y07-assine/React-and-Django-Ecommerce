@@ -831,3 +831,7 @@ NewsLetter
         margin-left: 0;
     }
 }
+
+#slick-product .product img{
+    height: 250px;
+}

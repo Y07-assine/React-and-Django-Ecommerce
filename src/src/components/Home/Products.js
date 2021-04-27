@@ -2,16 +2,38 @@ import React, { Component } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import "slick-carousel/slick/slick-theme.css";
-import PropTypes from 'prop-types';
+import axios from 'axios';
+import {productURL} from '../../Constant';
+import ProductItem from './ProductItem';
+
 
 class Products extends Component{
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
+        this.state={
+            products:[],
+            loading: false,
+            pack:[],
+            latest:[],
+            error: null
+        };
     }
+    
     componentDidMount(){
-        console.log(this.props);
+        this.setState({loading:true});
+        axios
+            .get(productURL)
+            .then(res=>{
+                this.setState({products:res.data.product});
+                this.setState({pack:res.data.pack});
+                this.setState({latest:res.data.latest_product});
+            })
+            .catch(err=>{
+                this.setState({error:err,loading:false})
+            })
     }
     render(){
+        const {products,loading,error,pack,latest} = this.state;
         const settings = {
             dots: true,
             infinite: true,
@@ -49,46 +71,40 @@ class Products extends Component{
             <div>
                 <section id="slick-product">
                 <div className="container py-5 mt-5">
-                    <h4 className="font-baloo font-size-30 text-center ">{this.props.title}</h4>
+                    <h4 className="font-baloo font-size-30 text-center ">Nouveaux Produits</h4>
                     <hr />
                     <Slider {...settings}>
-                    {this.props.list.map((product)=>{
-                        <div className="item py-2 mt-5">
-                        <div className="product font-rale ">
-                            <a href="#"><img src={product.image.url} id="product" alt={product.slug} />
-                            </a><br />
-                            <div className="text-center">
-                                <h3 className="product-title">{product.title} </h3>
-                                <div className="product__brand" style={{height: 20.4+'px'}}>{product.brand}</div>
-                                <div className="rating color-primary font-size-12">
-                                    <span><em className="fas fa-star"></em></span>
-                                    <span><em className="fas fa-star"></em></span>
-                                    <span><em className="fas fa-star"></em></span>
-                                    <span><em className="fas fa-star"></em></span>
-                                    <span><em className="fas fa-star"></em></span>
-                                </div>
-                                <div className="price py-2">
-                                    {product.discount_price ? (
-                                        <>
-                                        <span><strong>{product.price}0 Dhs</strong></span>
-                                        </>
-                                    ):
-                                        <>
-                                            <span className="product-discount">{product.discount_price}0 Dhs</span>
-                                            <span><strong>{product.price}0 Dhs</strong></span>
-                                        </>
-                                    }
-                                    
-                                </div>
-                                
-                            </div>
-                            </div>
-                        </div>
-                    })}
+                        {latest.map((product)=>(
+                            <ProductItem product={product} />
+                        ))}
                     </Slider>
                     <button type="submit" class="btn color-primary-bg font-size-20  btn-achat-tout text-center text-white"><a href="#"> Voir tout </a></button>
                     </div>
-                    </section>
+                </section>
+                <section id="slick-product">
+                    <div className="container py-5 mt-5">
+                        <h4 className="font-baloo font-size-30 text-center ">Meilleures Ventes</h4>
+                        <hr />
+                        <Slider {...settings}>
+                            {products.map((product)=>(
+                                <ProductItem product={product} />
+                            ))}
+                        </Slider>
+                        <button type="submit" class="btn color-primary-bg font-size-20  btn-achat-tout text-center text-white"><a href="#"> Voir tout </a></button>
+                    </div>
+                </section>
+                <section id="slick-product">
+                    <div className="container py-5 mt-5">
+                        <h4 className="font-baloo font-size-30 text-center ">Nos Packs</h4>
+                        <hr />
+                        <Slider {...settings}>
+                            {pack.map((product)=>(
+                                <ProductItem product={product} />
+                            ))}
+                        </Slider>
+                        <button type="submit" class="btn color-primary-bg font-size-20  btn-achat-tout text-center text-white"><a href="#"> Voir tout </a></button>
+                    </div>
+                </section>
             </div>
         )
     }

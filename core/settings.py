@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'home',
     'rest_framework',
     'ckeditor',
+    'drf_multiple_model',
 
 
 ]
@@ -127,12 +128,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'home/static/images')
-MEDIA_URL = '/images/'
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'src/build/static'), 
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'home/static/images')
+MEDIA_URL = '/images/'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
