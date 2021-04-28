@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {listproductURL} from '../Constant';
+import 'semantic-ui-css/semantic.min.css';
+import { Dropdown } from 'semantic-ui-react';
 
 class ListProducts extends Component{
     constructor(){
@@ -10,6 +12,7 @@ class ListProducts extends Component{
             error:null,
             products:[],
             category:[],
+            count:0,
             brand:[]
         };
     }
@@ -19,23 +22,47 @@ class ListProducts extends Component{
             .get(listproductURL)
             .then(res=>{
                 this.setState({products:res.data.product,brand:res.data.brand,category:res.data.category,loading:false});
+                this.setState({count:this.state.products.length});
             })
             .catch(err=>{
                 this.setState({error:err,loading:false})
             })
     }
     render(){
-        const {products}=this.state;
+        const {products,count}=this.state;
         return(
             <section className=" filter py-5">
                 <div className="container py-5">
                     <div className="row">
-                        <div className="col-sm-2">
-                            <h4 className="font-size-24 font-baloo mb-5">FILTRER PAR</h4>
+                        <div className="col-sm-3 mt-5">
+                            <h4 className="font-size-24 font-baloo">FILTRER PAR</h4>
                             
                             <hr />
                         </div>
-                        <div className="col-sm-10 ">
+                        <div className="col-sm-9 mt-5 ">
+                            <div className="count_product">
+                            <h4 className="font-size-24 font-baloo">{count} Produits</h4>
+                            <Dropdown
+                                text='Pertinence'
+                                icon='filter'
+                                floating
+                                labeled
+                                button
+                                className='icon'
+                            >
+                                <Dropdown.Menu>
+                                <Dropdown.Header icon='tags' content='Trier par' />
+                                <Dropdown.Divider />
+                                <Dropdown.Item
+                                    text='Prix(Décroissant)'
+                                />
+                                <Dropdown.Item
+                                    text='Prix(Croissant)'
+                                />
+                                </Dropdown.Menu>
+                            </Dropdown>
+                            </div>
+                            <hr />
                             <div className="list_product grid-container py-5">
                                 {products.map((product)=>(
                                     <div className="product">

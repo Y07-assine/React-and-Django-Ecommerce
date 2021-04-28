@@ -909,3 +909,19 @@ NewsLetter
     color:var(--second-Color);
 
 }
+
+.count_product{
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ui.labeled.icon.button{
+    background-color: white;
+    border: black solid;
+}
+
+.ui.dropdown>.text {
+    width: 13rem;
+    margin-top: 0.55rem;
+}
