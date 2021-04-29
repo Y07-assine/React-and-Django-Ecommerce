@@ -5,6 +5,7 @@ import 'semantic-ui-css/semantic.min.css';
 import { Select } from 'semantic-ui-react';
 import ProductItem from './Home/ProductItem';
 import Filter from './Filter';
+import {Spinner} from 'react-bootstrap';
 
 class ListProducts extends Component{
     constructor(props){
@@ -28,10 +29,10 @@ class ListProducts extends Component{
             .get(listproductURL)
             .then(res=>{
                 this.setState({products:res.data.product,brand:res.data.brand,category:res.data.category,loading:false});
-                this.setState({count:this.state.products.length});
-                if(this.state.Filtercategory ==''){
+                if(this.state.Filtercategory !=='nutrition-sportive'){
                     this.setState({products:this.state.products.filter(p=>p.category.indexOf(this.state.Filtercategory)>=0)});
                 }
+                this.setState({count:this.state.products.length});
             })
             .catch(err=>{
                 this.setState({error:err,loading:false})
@@ -39,7 +40,6 @@ class ListProducts extends Component{
     }
     handelChangeSort(event){
         this.setState({sort:event.target.value});
-        console.log(event.target.value);
         this.listProducts();
     }
     listProducts(){
@@ -58,7 +58,7 @@ class ListProducts extends Component{
         })
     }
     render(){
-        const {products,count,sort,brand,category}=this.state;
+        const {products,count,sort,brand,category,loading}=this.state;
         return(
             <section className=" filter py-5">
                 <div className="container py-5">
@@ -79,6 +79,11 @@ class ListProducts extends Component{
                             </select>
                             </div>
                             <hr />
+                            {loading && (
+                                <Spinner animation="border" role="status" variant="primary">
+                                    <span className="sr-only">Loading...</span>
+                                </Spinner>
+                            )}
                             <div className="list_product grid-container py-5">
                                 {products.map((product)=>(
                                     <ProductItem product={product} key={product.id}/>                                       
