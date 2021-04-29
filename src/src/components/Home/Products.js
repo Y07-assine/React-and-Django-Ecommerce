@@ -9,15 +9,13 @@ import {Spinner} from 'react-bootstrap';
 
 
 class Products extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state={
             products:[],
-
             loading: false,
             pack:[],
             latest:[],
-
             error: null
         };
         

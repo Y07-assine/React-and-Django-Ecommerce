@@ -7,8 +7,8 @@ import ProductItem from './Home/ProductItem';
 import Filter from './Filter';
 
 class ListProducts extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state={
             loading:false,
             error:null,
@@ -17,6 +17,7 @@ class ListProducts extends Component{
             category:[],
             count:0,
             sort:'Pertinence',
+            Filtercategory:props.match.params.category,
             brand:[]
         };
         this.handelChangeSort=this.handelChangeSort.bind(this);
@@ -28,6 +29,9 @@ class ListProducts extends Component{
             .then(res=>{
                 this.setState({products:res.data.product,brand:res.data.brand,category:res.data.category,loading:false});
                 this.setState({count:this.state.products.length});
+                if(this.state.Filtercategory ==''){
+                    this.setState({products:this.state.products.filter(p=>p.category.indexOf(this.state.Filtercategory)>=0)});
+                }
             })
             .catch(err=>{
                 this.setState({error:err,loading:false})
