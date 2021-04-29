@@ -13,11 +13,14 @@ class Products extends Component{
         super();
         this.state={
             products:[],
+
             loading: false,
             pack:[],
             latest:[],
+
             error: null
         };
+        
     }
     
     componentDidMount(){
@@ -25,12 +28,13 @@ class Products extends Component{
         axios
             .get(productURL)
             .then(res=>{
-                this.setState({products:res.data.product,pack:res.data.pack,latest:res.data.latest_product,loading:false});
+                this.setState({products:res.data.product,filtredProducts:res.data.product,pack:res.data.pack,latest:res.data.latest_product,loading:false});
             })
             .catch(err=>{
                 this.setState({error:err,loading:false})
             })
     }
+    
     render(){
         const {products,loading,error,pack,latest} = this.state;
         const settings = {

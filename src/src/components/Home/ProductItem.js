@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 const ProductItem =({product})=>{
 
         return(
-            <div className="item py-2 mt-5">
-                <div className="product font-rale ">
+            <div className="item py-2">
+                <div className="product ">
                     <a href="#"><img src={product.image} id="product" alt={product.slug} />
                     </a><br />
                     <div className="text-center">
@@ -20,12 +20,12 @@ const ProductItem =({product})=>{
                         <div className="price py-2">
                             {product.discount_price ? (
                                 <>
-                                    <span className="product-discount">{product.discount_price} Dhs</span>
-                                    <span><strong>{product.price} Dhs</strong></span>
+                                    <span className="product-discount">{product.discount_price}.00 Dhs</span>
+                                    <span><strong>{product.price}.00 Dhs</strong></span>
                                 </>
                             ):
                                 <>
-                                    <span><strong>{product.price} Dhs</strong></span>
+                                    <span><strong>{product.price}.00 Dhs</strong></span>
                                 </>
                             }
                             
