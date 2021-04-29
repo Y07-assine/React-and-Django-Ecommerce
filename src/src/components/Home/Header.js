@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Svg from '../ui/Svg';
+import {Link} from 'react-router-dom';
 
 class Header extends Component{
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.state={
             click:false,
             searchbar:false,
@@ -87,7 +88,7 @@ class Header extends Component{
                                 {click && <hr /> }
                                 <ul className="nav__list ">
                                     <li className="nav__item ">
-                                        <a href="#" className="nav__link scroll-link color-primary" >Protéine</a>
+                                        <Link to={`/products/Protéine`}>Protéine</Link>
                                     </li>
                                     <li className="nav__item ">
                                         <a href="#" className="nav__link scroll-link  color-primary">Gainers</a>
