@@ -1,10 +1,10 @@
 import React,{useState} from 'react';
+import {Link} from 'react-router-dom';
 
 const Filter=({brand,category})=>{
     const [dropBrand,setDropBrand] =useState(false);
     const [dropCat,setDropCat] = useState(false);
-    const [filterCat,setFilterCat] = useState([]);
-    console.log(filterCat);
+
 
     return(
     <div className="dropdown filter-list">
@@ -29,8 +29,10 @@ const Filter=({brand,category})=>{
             
             {category.map((cat)=>(
                 <div>
-                <input type="checkbox" id={cat.title}  name="category" value={cat.title} onClick={()=>setFilterCat({filterCat:[...filterCat,cat.title]})} />
-                <label for={cat.title}><a href="#">{cat.title}</a></label>
+                <Link to={`/products/categorie/${cat.title}`}>
+                    <input type="checkbox" id={cat.title}  name="category" value={cat.title} />
+                    <label for={cat.title}>{cat.title}</label>
+                </Link>
                 </div>
             ))}
             

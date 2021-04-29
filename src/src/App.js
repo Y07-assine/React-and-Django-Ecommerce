@@ -16,7 +16,7 @@ function App() {
         <Header />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/products/:category" component={ListProducts} />
+          <Route exact path="/products/categorie/:category" render={(props)=><ListProducts {...props} key={Math.random()} />} />
         </Switch>
         <Newsletter />
         <Footer />

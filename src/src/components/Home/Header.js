@@ -88,10 +88,10 @@ class Header extends Component{
                                 {click && <hr /> }
                                 <ul className="nav__list ">
                                     <li className="nav__item ">
-                                        <Link to={`/products/Protéine`}>Protéine</Link>
+                                        <Link to={`/products/categorie/Protéine`}>Protéine</Link>
                                     </li>
                                     <li className="nav__item ">
-                                        <a href="#" className="nav__link scroll-link  color-primary">Gainers</a>
+                                        <Link to={`/products/categorie/Gainers`}>Gainers</Link>
                                     </li>
                                     <li className="nav__item ">
                                         <a href="#" className="nav__link scroll-link color-primary">Vitamines</a>
@@ -100,7 +100,7 @@ class Header extends Component{
                                         <a href="#" className="nav__link scroll-link color-primary">Barres & Snacks</a>
                                     </li>
                                     <li className="nav__item">
-                                        <a href="#" className="nav__link scroll-link color-primary">Pack</a>
+                                        <Link to={`/products/categorie/Pack`}>Pack</Link>
                                     </li>
                                     <li className="nav__item">
                                         <a href="#" className="nav__link scroll-link color-primary">Accessoires</a>

@@ -6,6 +6,7 @@ import axios from 'axios';
 import {productURL} from '../../Constant';
 import ProductItem from './ProductItem';
 import {Spinner} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 
 class Products extends Component{
@@ -84,7 +85,7 @@ class Products extends Component{
                             <ProductItem product={product} key={product.id}/>
                         ))}
                     </Slider>
-                    <button type="submit" class="btn color-primary-bg font-size-20  btn-achat-tout text-center text-white"><a href="#"> Voir tout </a></button>
+                    <button type="submit" class="btn color-primary-bg font-size-20  btn-achat-tout text-center text-white"><Link to={`/products/categorie/nutrition-sportive`}>Voir tout </Link></button>
                     </div>
                 </section>
                 <section id="slick-product">
@@ -101,7 +102,7 @@ class Products extends Component{
                                 <ProductItem product={product} key={product.id}/>
                             ))}
                         </Slider>
-                        <button type="submit" class="btn color-primary-bg font-size-20  btn-achat-tout text-center text-white"><a href="#"> Voir tout </a></button>
+                        <button type="submit" class="btn color-primary-bg font-size-20  btn-achat-tout text-center text-white"><Link to={`/products/categorie/nutrition-sportive`}>Voir tout </Link></button>
                     </div>
                 </section>
                 <section id="slick-product">
@@ -118,7 +119,7 @@ class Products extends Component{
                                 <ProductItem product={product} key={product.id} />
                             ))}
                         </Slider>
-                        <button type="submit" class="btn color-primary-bg font-size-20  btn-achat-tout text-center text-white"><a href="#"> Voir tout </a></button>
+                        <button type="submit" class="btn color-primary-bg font-size-20  btn-achat-tout text-center text-white"><Link to={`/products/categorie/nutrition-sportive`}>Voir tout </Link></button>
                     </div>
                 </section>
             </div>
