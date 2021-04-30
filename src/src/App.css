@@ -963,3 +963,14 @@ NewsLetter
 .show_content{
     display:block;
 }
+
+.slick-initialized .slick-slide .product{
+    margin-top: 2rem;
+}
+
+.ui.checkbox {
+font-size: 1.6rem;
+}
+.ui.checkbox label {
+    color: var(--color-pri);
+}

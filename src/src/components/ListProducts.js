@@ -45,7 +45,7 @@ class ListProducts extends Component{
     listProducts(){
         
         this.setState(state =>{
-            if(state.sort !== ''){
+            if(state.sort !== 'p'){
                 state.products.sort((a,b)=>(state.sort === 'd')?
                 (a.price < b.price?1:-1):
                 (a.price > b.price?1:-1)
@@ -58,22 +58,21 @@ class ListProducts extends Component{
         })
     }
     render(){
-        const {products,count,sort,brand,category,loading}=this.state;
+        const {products,count,sort,brand,category,loading,Filtercategory}=this.state;
         return(
             <section className=" filter py-5">
                 <div className="container py-5">
                     <div className="row">
                         <div className="col-sm-3 mt-5">
                             <h4 className="font-size-24 font-baloo">FILTRER PAR</h4>
-                            <hr />
-                            <Filter brand={brand} category={category} />
+                            <Filter brand={brand} category={category} filter={Filtercategory} />
                         </div>
                         <div className="col-sm-9 mt-5 ">
                             <div className="count_product">
                             <h4 className="font-size-24 font-baloo">{count} Produits</h4>
                             <select onChange={this.handelChangeSort} className="sort form-control" value={sort}>
                                 <option disabled>Trier par:</option>
-                                <option value="">Pertinence</option>
+                                <option value="p">Pertinence</option>
                                 <option value="d">Prix(Décroissant)</option>
                                 <option value="c">Prix(Croissant)</option>
                             </select>
