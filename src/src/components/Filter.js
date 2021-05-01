@@ -12,7 +12,7 @@ const Filter=({brand,category,filter})=>{
         <div>
             {filter.indexOf('nutrition-sportive')<0 && (
                 <Link to={`/products/categorie/nutrition-sportive`}>
-                    <span style={{margin:1+'rem'}}><Svg name={'cross'} size={12} />{filter}</span>
+                    <span style={{margin:1+'rem'}}><Svg name={'cross'} size={12} color={'red'}/>{filter}</span>
                 </Link>
             )}
             <hr />

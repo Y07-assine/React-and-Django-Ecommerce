@@ -6,6 +6,7 @@ import { Select } from 'semantic-ui-react';
 import ProductItem from './Home/ProductItem';
 import Filter from './Filter';
 import {Spinner} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class ListProducts extends Component{
     constructor(props){
@@ -85,7 +86,8 @@ class ListProducts extends Component{
                             )}
                             <div className="list_product grid-container py-5">
                                 {products.map((product)=>(
-                                    <ProductItem product={product} key={product.id}/>                                       
+                                    <Link to={`/product/${product.slug}`}><ProductItem product={product} key={product.id}/>  </Link>
+                                                                         
                                 ))}
                             </div>
                         </div>

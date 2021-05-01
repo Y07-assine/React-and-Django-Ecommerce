@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", TemplateView.as_view(template_name='index.html')),
     path("products/categorie/<str:category>", TemplateView.as_view(template_name='index.html')),
+    path("product/<str:slug>", TemplateView.as_view(template_name='index.html')),
     path("api/", include('home.api.urls')),
 ]
 
