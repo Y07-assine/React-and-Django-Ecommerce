@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 from drf_multiple_model.views import ObjectMultipleModelAPIView
 from home.models import Product,Category,ProductFlavor,Flavor,Brand
 from rest_framework.permissions import AllowAny
@@ -20,3 +20,8 @@ class ListProductListView(ObjectMultipleModelAPIView):
         {'queryset':Category.objects.all(),'serializer_class':CategorySerializer,'label':'category'},
         {'queryset':Brand.objects.all(),'serializer_class':BrandSerializer,'label':'brand'}
     ]
+
+class ProductDetailView(RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_field = 'slug'
