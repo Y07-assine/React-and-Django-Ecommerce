@@ -5,6 +5,7 @@ import Svg from './ui/Svg';
 const ProductDetails=({match})=>{
     const [product,setproduct] =useState([]);
     const [error,setError] =useState(null);
+    const [avantages,setAvtg]=useState('');
     const slug = match.params.slug
     useEffect(() => {
         console.log(match.params.slug);
@@ -12,13 +13,13 @@ const ProductDetails=({match})=>{
             .get(`http://localhost:8000/api/product/${slug}`)
             .then(res=>{
                 setproduct(res.data);
+                setAvtg(res.data.details.replace(/<[^>]+>/g, ''))
             })
             .catch(err=>{
                 setError(err);
             })
         
         },[]);
-    
     return(
         <div>
             <div id="breadcrumb">
@@ -55,7 +56,7 @@ const ProductDetails=({match})=>{
                             <hr className="m-0" />
                             <h5 className="font-baloo font-size-24 color-grey2 py-2">Avantages Principaux :</h5>
                             <ul className="m-0 avantages">
-                               {product.details}
+                               {avantages}
                             </ul>
                             <h5 className="font-baloo font-size-24 color-grey2 py-3 ">Saveurs :</h5>
                             <form method="post">

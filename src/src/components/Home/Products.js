@@ -82,7 +82,7 @@ class Products extends Component{
                     )}
                     <Slider {...settings}>
                         {latest.map((product)=>(
-                            <ProductItem product={product} key={product.id}/>
+                            <Link to={`/product/${product.slug}`}><ProductItem product={product} key={product.id} /></Link>
                         ))}
                     </Slider>
                     <button type="submit" class="btn color-primary-bg font-size-20  btn-achat-tout text-center text-white"><Link to={`/products/categorie/nutrition-sportive`}>Voir tout </Link></button>
@@ -99,7 +99,7 @@ class Products extends Component{
                         )}
                         <Slider {...settings}>
                             {products.map((product)=>(
-                                <ProductItem product={product} key={product.id}/>
+                                <Link to={`/product/${product.slug}`}><ProductItem product={product} key={product.id} /></Link>
                             ))}
                         </Slider>
                         <button type="submit" class="btn color-primary-bg font-size-20  btn-achat-tout text-center text-white"><Link to={`/products/categorie/nutrition-sportive`}>Voir tout </Link></button>
@@ -116,7 +116,7 @@ class Products extends Component{
                         )}
                         <Slider {...settings}>
                             {pack.map((product)=>(
-                                <ProductItem product={product} key={product.id} />
+                                <Link to={`/product/${product.slug}`}><ProductItem product={product} key={product.id} /></Link>
                             ))}
                         </Slider>
                         <button type="submit" class="btn color-primary-bg font-size-20  btn-achat-tout text-center text-white"><Link to={`/products/categorie/nutrition-sportive`}>Voir tout </Link></button>
