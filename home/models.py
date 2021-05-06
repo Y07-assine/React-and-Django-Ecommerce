@@ -43,7 +43,9 @@ class Product(models.Model):
         return reverse("core:remove-from-cart", kwargs={"slug": self.slug})
 
     def get_amount_saved(self):
-        return self.price - self.discount_price
+        if self.discount_price :
+            return self.price - self.discount_price
+        return 0
 
     def get_stock(self):
         productflavor = ProductFlavor.objects.filter(product = self)
