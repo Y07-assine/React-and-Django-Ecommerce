@@ -6,6 +6,7 @@ import json
 class ProductSerializer(serializers.ModelSerializer):
     brand_name = serializers.CharField(source='brand.name')
     category = serializers.CharField(source='category.title')
+    amount_saved = serializers.SerializerMethodField()
     class Meta:
         model = Product
         fields =(
@@ -19,8 +20,12 @@ class ProductSerializer(serializers.ModelSerializer):
             'image',
             'details',
             'useCase',
-            'fiche_tec'
+            'fiche_tec',
+            'amount_saved'
         )
+    def get_amount_saved(self,obj):
+        return obj.get_amount_saved()
+
     def to_representation(self,instance):
         data = super().to_representation(instance)
         data['details']=strip_tags(instance.details)
@@ -36,3 +41,7 @@ class BrandSerializer(serializers.ModelSerializer):
         model = Brand
         fields='__all__'
 
+class ProductFlavorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductFlavor
+        fields='__all__'

@@ -568,6 +568,13 @@ Navigation Media Query
     line-height: 2rem;
     font-size: 20px;
 }
+.breadcrumb{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4.5rem;
+
+}
 .price {
     margin-top: 1rem;
     color: #ed5565;
@@ -1120,6 +1127,7 @@ input::-webkit-inner-spin-button {
 .economise{
     font-size: 14px;
     border-radius: 0.5rem;
+    margin-left: 3rem;
     background-color: rgb(19, 163, 74);
 }
 

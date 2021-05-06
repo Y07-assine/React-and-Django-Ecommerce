@@ -58,7 +58,7 @@ const ProductDetails=({match})=>{
                             </div>
                             <hr className="m-0" />
                             <h5 className="font-baloo font-size-24 color-grey2 py-2">Avantages Principaux :</h5>
-                            <ul className="m-0 avantages"  >
+                            <ul className="m-0 avantages" style={{whiteSpace: 'pre-line'}} >
                                {product.details}
                             </ul>
                             <h5 className="font-baloo font-size-24 color-grey2 py-3 ">Saveurs :</h5>
@@ -71,7 +71,7 @@ const ProductDetails=({match})=>{
                                     <>
                                     <span className="product-old-price font-baloo font-size-20">{product.discount_price}.00 Dhs</span>
                                     <span className="font-baloo font-size-24 " id="price"><strong>{product.price}.00 Dhs</strong></span>
-                                    <span className="font-baloo font-size-20 economise py-3 px-3 text-white">ÉCONOMISEZ 0 Dhs </span>
+                                    <span className="font-baloo font-size-20 economise py-3 px-3 text-white">ÉCONOMISEZ {product.amount_saved}.00 Dhs </span>
                                     </>
                                     ):
                                     <span className="font-baloo font-size-24 " id="price"><strong>{product.price}.00 Dhs</strong></span>
@@ -116,8 +116,8 @@ const ProductDetails=({match})=>{
                             <hr  />
                             <div className="dropdown  ">
                                 <button onClick={dropdown} id="drop2" className="dropbtn ">Avantages</button>
-                                <div id="myDropdown2" className="dropdown-content" style={{whiteSpace: 'pre-line'}}>
-                                    {product.details}
+                                <div id="myDropdown2" className="dropdown-content" >
+                                   <p style={{whiteSpace: 'pre-line'}}>{product.details}</p> 
                                 </div>
 
                             </div>
