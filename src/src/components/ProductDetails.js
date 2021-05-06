@@ -5,7 +5,7 @@ import Svg from './ui/Svg';
 const ProductDetails=({match})=>{
     const [product,setproduct] =useState([]);
     const [error,setError] =useState(null);
-    const [avantages,setAvtg]=useState('');
+    
     const slug = match.params.slug
     useEffect(() => {
         console.log(match.params.slug);
@@ -13,13 +13,16 @@ const ProductDetails=({match})=>{
             .get(`http://localhost:8000/api/product/${slug}`)
             .then(res=>{
                 setproduct(res.data);
-                setAvtg(res.data.details.replace(/<[^>]+>/g, ''))
             })
             .catch(err=>{
                 setError(err);
             })
         
         },[]);
+        function dropdown(e){
+            const parent = document.getElementById(e.target.id);
+            document.getElementById(parent.nextSibling.id).classList.toggle("show_content");
+        }
     return(
         <div>
             <div id="breadcrumb">
@@ -55,8 +58,8 @@ const ProductDetails=({match})=>{
                             </div>
                             <hr className="m-0" />
                             <h5 className="font-baloo font-size-24 color-grey2 py-2">Avantages Principaux :</h5>
-                            <ul className="m-0 avantages">
-                               {avantages}
+                            <ul className="m-0 avantages"  >
+                               {product.details}
                             </ul>
                             <h5 className="font-baloo font-size-24 color-grey2 py-3 ">Saveurs :</h5>
                             <form method="post">
@@ -87,7 +90,7 @@ const ProductDetails=({match})=>{
                                         <input className="color-primary-bg font-size-14  btn-achat-product text-white" type="submit" value="Ajouter au panier"/></div>
                                     </div>
                             </form>    
-                                </div> <hr className="pt-4" />
+                                 <hr className="pt-4" />
                                 <div className="details_livr">
                                     <span className="py-2">
                                         <Svg name={'truck'} size={12}  />
@@ -98,12 +101,13 @@ const ProductDetails=({match})=>{
                                         Expédition Sous 24h
                                     </span>
                                 </div>
+                            </div>
                         </div>
 
                         <div className="col-sm-6 " id="product_spec"  >
                             <hr className="m-0 color-primary-bg" />
                             <div className="dropdown  " >
-                                <button onclick="dropdown(this)" id="drop1" className="dropbtn ">Description du produit</button>
+                                <button onClick={dropdown} id="drop1" className="dropbtn ">Description du produit</button>
                                 <div id="myDropdown1" className="dropdown-content">
                                     <p>{product.description}</p>
                                 </div>
@@ -111,30 +115,29 @@ const ProductDetails=({match})=>{
                             </div>
                             <hr  />
                             <div className="dropdown  ">
-                                <button onclick="dropdown(this)" id="drop2" className="dropbtn ">Avantages</button>
-                                <div id="myDropdown2" className="dropdown-content">
+                                <button onClick={dropdown} id="drop2" className="dropbtn ">Avantages</button>
+                                <div id="myDropdown2" className="dropdown-content" style={{whiteSpace: 'pre-line'}}>
                                     {product.details}
                                 </div>
 
                             </div>
                             <hr />
                             <div className="dropdown  ">
-                                <button onclick="dropdown(this)" id="drop3" className="dropbtn ">Informations nutrititionnelles</button>
+                                <button onClick={dropdown} id="drop3" className="dropbtn ">Informations nutrititionnelles</button>
                                 <div id="myDropdown3" className="dropdown-content">
                                     <img src={product.fiche_tec} alt="infos_nutri" style={{width: 100+'%'}} />
                                 </div>
                             </div>
                             <hr />
                             <div className="dropdown  ">
-                                <button onclick="dropdown(this)" id="drop4" className="dropbtn ">Utilisation</button>
+                                <button onClick={dropdown} id="drop4" className="dropbtn ">Utilisation</button>
                                 <div id="myDropdown4" className="dropdown-content">
                                     <p>{product.useCase}</p>
                                 </div>
                             </div>
                             <hr />
                             <div className="dropdown  ">
-                                <button onclick="dropdown(this)" id="drop5" className="dropbtn ">Avis de clients  </button>
-
+                                <button onClick={dropdown} id="drop5" className="dropbtn ">Avis de clients  </button>
                                 <div id="myDropdown5" className="dropdown-content">
                                     <div className="d-flex py-2">
                                         <div className="rating color-primary font-size-12">
@@ -148,10 +151,7 @@ const ProductDetails=({match})=>{
                                     </div>
                                     <h3 className="font-baloo font-size-24 color-primary  ">Super goût et bonne miscibilité</h3>
                                     <p>Le goût à la vanille passe très bien avec du lait et aucun soucis de grumeaux avec cette poudre.</p>
-
                                 </div>
-
-
                             </div>
                         </div>
                     </div>

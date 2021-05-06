@@ -961,7 +961,7 @@ NewsLetter
 }
 
 .show_content{
-    display:block;
+    display:block !important;
 }
 
 .slick-initialized .slick-slide .product{

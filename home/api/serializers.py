@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from home.models import Product,Category,Brand,Flavor,ProductFlavor
+from django.utils.html import strip_tags
+import json
 
 class ProductSerializer(serializers.ModelSerializer):
     brand_name = serializers.CharField(source='brand.name')
@@ -19,6 +21,11 @@ class ProductSerializer(serializers.ModelSerializer):
             'useCase',
             'fiche_tec'
         )
+    def to_representation(self,instance):
+        data = super().to_representation(instance)
+        data['details']=strip_tags(instance.details)
+        
+        return data
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
