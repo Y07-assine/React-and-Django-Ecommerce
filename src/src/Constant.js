@@ -7,3 +7,5 @@ const endpoint = `${localhost}${apiURL}`;
 export const productURL=`${endpoint}/products/`;
 
 export const listproductURL=`${endpoint}/listproducts/`;
+
+export const ProductFlavorURL =`${endpoint}/flavor/`;

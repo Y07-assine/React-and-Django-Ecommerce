@@ -4,6 +4,7 @@ from home.models import Product,Category,ProductFlavor,Flavor,Brand
 from rest_framework.permissions import AllowAny
 from .serializers import ProductSerializer,CategorySerializer,BrandSerializer,ProductFlavorSerializer
 from django.db.models import F,Q
+from django.shortcuts import render ,get_object_or_404
 
 class ProductListView(ObjectMultipleModelAPIView):
 
@@ -26,7 +27,11 @@ class ProductDetailView(RetrieveAPIView):
     serializer_class = ProductSerializer
     lookup_field = 'slug'
 
-class ProductFlavorView(RetrieveAPIView):
+class ProductFlavorView(ListAPIView):
     queryset = ProductFlavor.objects.all()
     serializer_class = ProductFlavorSerializer
-    lookup_field = Product.objects.filter(slug = 'slug')
+    
+    def get_queryset(self):
+        product = get_object_or_404(Product,slug=self.kwargs['slug'])
+        return ProductFlavor.objects.filter(product = product)
+    

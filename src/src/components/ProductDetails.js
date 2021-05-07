@@ -4,6 +4,7 @@ import Svg from './ui/Svg';
 
 const ProductDetails=({match})=>{
     const [product,setproduct] =useState([]);
+    const [flavor,setflavor] =useState([]);
     const [error,setError] =useState(null);
     
     const slug = match.params.slug
@@ -13,6 +14,14 @@ const ProductDetails=({match})=>{
             .get(`http://localhost:8000/api/product/${slug}`)
             .then(res=>{
                 setproduct(res.data);
+            })
+            .catch(err=>{
+                setError(err);
+            })
+        axios
+            .get(`http://localhost:8000/api/flavor/${slug}`)
+            .then(res=>{
+                setflavor(res.data);
             })
             .catch(err=>{
                 setError(err);
@@ -62,10 +71,13 @@ const ProductDetails=({match})=>{
                                {product.details}
                             </ul>
                             <h5 className="font-baloo font-size-24 color-grey2 py-3 ">Saveurs :</h5>
+                            
                             <form method="post">
-                                <select id="saveur" name="variantflavor">                                
-                                    <option name="flavor" value="{{fr.flavor.name}}"></option>
-                                </select>
+                            <select id="saveur" name="variantflavor">
+                                {flavor.map((flavor)=>(
+                                    <option name="flavor" value={flavor.flavor}>{flavor.flavor}</option>
+                                ))}
+                            </select>
                                 <div className="price py-5">
                                 {product.discount_price ? (
                                     <>
