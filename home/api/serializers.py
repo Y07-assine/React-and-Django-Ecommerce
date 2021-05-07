@@ -21,10 +21,11 @@ class ProductSerializer(serializers.ModelSerializer):
             'details',
             'useCase',
             'fiche_tec',
-            'amount_saved'
+            'amount_saved',
         )
     def get_amount_saved(self,obj):
         return obj.get_amount_saved()
+
 
     def to_representation(self,instance):
         data = super().to_representation(instance)
@@ -42,6 +43,9 @@ class BrandSerializer(serializers.ModelSerializer):
         fields='__all__'
 
 class ProductFlavorSerializer(serializers.ModelSerializer):
+    flavor = serializers.CharField(source='flavor.name')
     class Meta:
         model = ProductFlavor
-        fields='__all__'
+        fields=('flavor',
+                'product'
+            )
