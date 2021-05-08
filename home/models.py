@@ -72,3 +72,69 @@ class ProductFlavor(models.Model):
 
     def __str__(self):
         return self.product.title
+
+
+class OrderProduct(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    ordered = models.BooleanField(default = False)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    quantity = models.IntegerField(default = 1)
+    flavor = models.CharField(max_length=100,default='Vanille')
+
+    def __str__(self):
+        return f"{self.quantity} of {self.product.title} : {self.flavor}"
+    
+    def get_total_product_price(self):
+        return self.quantity * self.product.price
+    
+    def get_quantity(self):
+        return self.quantity 
+
+    def get_total_product_discountprice(self):
+        return self.quantity * self.product.discount_price
+
+    def get_amount_saved(self):
+        return self.get_total_product_price() - self.get_total_product_discountprice()
+
+    def get_final_price(self):
+        if self.product.discount_price:
+            return self.get_total_product_discountprice()
+        return self.get_total_product_price()
+
+
+class Order(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    products = models.ManyToManyField(OrderProduct)
+    start_date = models.DateTimeField(auto_now_add=True)
+    ordered_date = models.DateTimeField()
+    ordered = models.BooleanField(default = False)
+    personnelInfo = models.ForeignKey('PersonnelInfo',on_delete=models.SET_NULL,blank=True,null=True)
+    
+
+    def __str__(self):
+        return self.user.username
+    
+    def get_total(self):
+        total = 0
+        for order_product in self.products.all():
+            total += order_product.get_final_price()
+        return total
+    
+    def get_nomber_article(self):
+        count = 0
+        for order_product in self.products.all():
+            count += order_product.get_quantity()
+        return count
+
+
+class PersonnelInfo(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
+    apartment_address = models.CharField(max_length=250)
+    city = models.CharField(max_length=100)
+    zip = models.CharField(max_length=100)
+    phone = models.CharField(max_length=11)
+
+    def __str__(self):
+        return f"{self.user.username} in {self.apartment_address}"

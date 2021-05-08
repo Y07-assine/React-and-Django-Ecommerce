@@ -47,5 +47,6 @@ class ProductFlavorSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductFlavor
         fields=('flavor',
-                'product'
+                'product',
+                'quantity'
             )

@@ -9,3 +9,5 @@ export const productURL=`${endpoint}/products/`;
 export const listproductURL=`${endpoint}/listproducts/`;
 
 export const ProductFlavorURL =`${endpoint}/flavor/`;
+
+export const addToCartURL = `${endpoint}/add-to-cart/`;
