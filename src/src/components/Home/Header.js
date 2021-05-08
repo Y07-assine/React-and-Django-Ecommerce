@@ -3,8 +3,8 @@ import Svg from '../ui/Svg';
 import {Link} from 'react-router-dom';
 
 class Header extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state={
             click:false,
             searchbar:false,
@@ -61,7 +61,7 @@ class Header extends Component{
 
                                 <div className="nav__icons">
                                     <a href="#" className="icon__item" >
-                                        <Svg name={'user'} size={40} />
+                                        <Svg name={this.props.isAuthenticated ?'user' : 'home'} size={40} />
                                     </a>
                                 <div className="nav-search" style={{paddingRight:1+'rem'}}>
                                     <a href="#" className="icon__item">

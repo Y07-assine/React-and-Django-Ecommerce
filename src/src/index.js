@@ -1,11 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import reducer from './store/reducers/auth';
+import {createStore,compose,applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import {Provider} from 'react-redux';
+
+const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose ;
+const initialState = {};
+const store = createStore(reducer,composeEnhances(
+  applyMiddleware(thunk)
+));
+
+const app = (
+  <Provider store={store}>
+    <App /> 
+  </Provider>
+)
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  app,
   document.getElementById('root')
 );
 

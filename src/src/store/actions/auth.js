@@ -7,7 +7,7 @@ export const authStart = () => {
     }
 }
 
-export const authSuccess =()=>{
+export const authSuccess =(token)=>{
     return {
         type: actionTypes.AUTH_SUCCESS,
         token: token
@@ -19,7 +19,7 @@ export const logout =()=>{
     localStorage.removeItem("expirationDate");
 }
 
-export const authFail =()=>{
+export const authFail =(error)=>{
     return {
         type: actionTypes.AUTH_FAIL,
         error: error
@@ -34,8 +34,8 @@ export const checkAuthTimeout = expirationTime =>{
     };
 };
 
-export const authLogin = (username,password)=>{
-    return dispatch =>{
+export const authLogin = (username,password)=> async dispatch=>{
+    
         dispatch(authStart());
         axios
             .post("http://localhost:8000/rest-auth/login/",{
@@ -54,10 +54,9 @@ export const authLogin = (username,password)=>{
                 dispatch(authFail(err));
             });
     };
-};
 
-export const authSignup = (username,email,password1,password2)=>{
-    return dispatch =>{
+
+export const authSignup = (username,email,password1,password2)=> async dispatch=>{
         dispatch(authStart());
         axios
             .post("http://localhost:8000/rest-auth/registration/",{
@@ -78,4 +77,24 @@ export const authSignup = (username,email,password1,password2)=>{
                 dispatch(authFail(err));
             });
     };
-};
+
+
+export const authCheckState = () => async dispatch =>{
+
+        const token = localStorage.getItem('token');
+        if(token === undefined){
+            dispatch(logout());
+        }else {
+            const expirationDate = new Date(localStorage.getItem('expirationDate'));
+            if(expirationDate <= new Date()){
+                dispatch(logout());
+            }else {
+                dispatch(authSuccess(token));
+                dispatch(
+                    checkAuthTimeout(
+                        (expirationDate.getTime() -new Date().getTime())/1000
+                    )
+                );
+            }
+        }
+    };
