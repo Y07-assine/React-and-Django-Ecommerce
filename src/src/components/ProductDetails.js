@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import axios from 'axios';
 import Svg from './ui/Svg';
+import {addToCartURL} from '../Constant';
 
 const ProductDetails=({match})=>{
     const [product,setproduct] =useState([]);
@@ -31,6 +32,25 @@ const ProductDetails=({match})=>{
         function dropdown(e){
             const parent = document.getElementById(e.target.id);
             document.getElementById(parent.nextSibling.id).classList.toggle("show_content");
+        }
+        function qtyUp(e){
+            var value = parseInt(document.getElementById('quantite').value);
+            value = isNaN(value) ? 0 : value;
+            if(value <9){
+                value++;
+            document.getElementById('quantite').value = value;
+            }
+            
+        }
+        function qtyDown(e){
+            var value = parseInt(document.getElementById('quantite').value);
+            value = isNaN(value) ? 0 : value;
+            if(value >1){
+                value--;
+            document.getElementById('quantite').value = value;
+            }
+
+
         }
     return(
         <div>
@@ -91,15 +111,15 @@ const ProductDetails=({match})=>{
                                 </div>
                                 <h5 className="font-baloo font-size-24 color-grey2  " id="quantité">Quantité:</h5>
                                 <div className=" form-row font-size-14 font-baloo achat__spec">
-                                    <div className="col quantite_value" >
-                                        <div ><br />
-                                            <button data-id="prod1" className="diminue_qt" >-</button>
+                                    <div className=" col quantite_value" >
+                                        <div >
+                                            <input id="prod1" className="diminue_qt" onClick={qtyDown} type="button" value="-" />
                                             <input data-id="prod1" name="quantite" id="quantite" type="number" min="1" value="1" className="quantite__input" />
-                                            <button data-id="prod1" className="augmente_qt">+</button>
+                                            <input id="prod1" className="augmente_qt" onClick={qtyUp} type="button" value="+" />
                                         </div>
                                     </div>
                                     <div className="col achat-product pt-3">
-                                        <input className="color-primary-bg font-size-14  btn-achat-product text-white" type="submit" value="Ajouter au panier"/></div>
+                                        <input className="color-primary-bg font-size-14  btn-achat-product text-white" type="button" value="Ajouter au panier"/></div>
                                     </div>
                             </form>    
                                  <hr className="pt-4" />
