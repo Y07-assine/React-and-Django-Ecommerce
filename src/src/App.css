@@ -545,7 +545,10 @@ Navigation Media Query
 .slick-slider {
     margin-bottom: 4rem;
 }
-
+.ui.form {
+    font-size: 1.5rem;
+    margin: 10rem;
+}
 .product__brand {
     font-family: Muli,Arial,sans-serif;
     color: #575756;
@@ -568,12 +571,23 @@ Navigation Media Query
     line-height: 2rem;
     font-size: 20px;
 }
-.breadcrumb{
+.breadcrumb {
+    display: -ms-flexbox;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 4.5rem;
-
+    flex-wrap: wrap;
+    padding: .75rem 1rem;
+    margin-bottom: 1rem;
+    list-style: none;
+    background-color: #f3f5f7;
+    border-radius: .25rem;
+    height: 80px;
+    width: 100%;
+    margin-top: 6rem;
+}
+.breadcrumb li{
+    margin-right: 1rem;
 }
 .price {
     margin-top: 1rem;

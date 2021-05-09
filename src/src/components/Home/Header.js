@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Svg from '../ui/Svg';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import * as actions from '../../store/actions/auth';
+import {Dropdown} from 'react-bootstrap';
 
 class Header extends Component{
     constructor(props){
@@ -14,7 +17,12 @@ class Header extends Component{
         };
         this.handleClick=this.handleClick.bind(this);
         this.closeMenu=this.closeMenu.bind(this);
+        this.handelLogout=this.handelLogout.bind(this);
         
+    }
+
+    handelLogout(){
+        this.props.logout();
     }
 
     handleClick(){
@@ -60,9 +68,26 @@ class Header extends Component{
                                 </div>
 
                                 <div className="nav__icons">
-                                    <a href="#" className="icon__item" >
-                                        <Svg name={this.props.isAuthenticated ?'user' : 'home'} size={40} />
-                                    </a>
+                                    <Dropdown>
+                                        <a href="#" className="icon__item" >
+                                            <Svg name={this.props.isAuthenticated ?'user':'home'} size={40} />
+                                        </a>
+                                        
+                                        <Dropdown.Menu>
+                                        {this.props.isAuthenticated ?
+                                        <>
+                                        <Dropdown.Item href="#/action-1">user</Dropdown.Item>
+                                        <Dropdown.Item onClick={this.handelLogout}>Déconnexion</Dropdown.Item>
+                                        </>
+                                        : 
+                                        <>
+                                        <Dropdown.Item href="#/action-1">Se Connecter</Dropdown.Item>
+                                        <Dropdown.Item onClick={this.handelLogout}>S'inscrire</Dropdown.Item>
+                                        </>
+                                        }
+                                        </Dropdown.Menu>
+                                        
+                                    </Dropdown>
                                 <div className="nav-search" style={{paddingRight:1+'rem'}}>
                                     <a href="#" className="icon__item">
                                         <Svg name={'search'} size={40} />
@@ -117,4 +142,18 @@ class Header extends Component{
     }
 }
 
-export default Header;
+const maStateToProps = (state)=>{
+    return{
+      isAuthenticated: state.token !== null,
+      loading: state.loading,
+      error: state.error
+    }
+  }
+  
+  const mapDispatchToProps = dispatch =>{
+    return{
+      logout: () => dispatch(actions.logout())
+    }
+  }
+
+export default connect(maStateToProps,mapDispatchToProps)(Header);

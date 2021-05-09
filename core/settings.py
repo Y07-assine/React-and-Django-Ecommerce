@@ -42,9 +42,23 @@ INSTALLED_APPS = [
     'rest_framework',
     'ckeditor',
     'drf_multiple_model',
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+    'rest_framework.authtoken',
 
 
 ]
+
+SITE_ID = 1
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
