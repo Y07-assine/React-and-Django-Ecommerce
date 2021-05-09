@@ -21,7 +21,7 @@ class Header extends Component{
         
     }
 
-    handelLogout(){
+    handelLogout=()=>{
         this.props.logout();
     }
 
@@ -69,20 +69,21 @@ class Header extends Component{
 
                                 <div className="nav__icons">
                                     <Dropdown>
+                                        <Dropdown.Toggle>
                                         <a href="#" className="icon__item" >
-                                            <Svg name={this.props.isAuthenticated ?'user':'home'} size={40} />
+                                            <Svg name={'user'} size={40} />
                                         </a>
-                                        
+                                        </Dropdown.Toggle>
                                         <Dropdown.Menu>
                                         {this.props.isAuthenticated ?
                                         <>
                                         <Dropdown.Item href="#/action-1">user</Dropdown.Item>
-                                        <Dropdown.Item onClick={this.handelLogout}>Déconnexion</Dropdown.Item>
+                                        <Dropdown.Item onClick={()=>this.props.logout()}>Déconnexion</Dropdown.Item>
                                         </>
                                         : 
                                         <>
                                         <Dropdown.Item href="#/action-1">Se Connecter</Dropdown.Item>
-                                        <Dropdown.Item onClick={this.handelLogout}>S'inscrire</Dropdown.Item>
+                                        <Dropdown.Item >S'inscrire</Dropdown.Item>
                                         </>
                                         }
                                         </Dropdown.Menu>
@@ -142,7 +143,7 @@ class Header extends Component{
     }
 }
 
-const maStateToProps = (state)=>{
+const maStateToProps = state =>{
     return{
       isAuthenticated: state.token !== null,
       loading: state.loading,
