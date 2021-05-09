@@ -1179,3 +1179,9 @@ input::-webkit-inner-spin-button {
     fill: #666;
     padding-right: 1rem;
 }
+
+.login-form{
+    margin-top: 7rem;
+    margin-bottom: 5rem;
+    font-size: 2rem;
+}
