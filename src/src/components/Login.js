@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Form, Input, Button } from 'semantic-ui-react';
+import { Form, Button ,Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import * as actions from '../store/actions/auth';
+import {Redirect} from 'react-router-dom';
 
  
 class Login extends Component {
@@ -29,29 +30,38 @@ class Login extends Component {
     }
 
 render(){
+  const {error,loading,token} = this.props;
+  const {email,password} = this.state;
+  if(token){
+    return <Redirect to="/" />;
+  }
   return(
+    <div className="container login-form">
     <Form onSubmit={this.handelSubmit}>
-    <Form.Field
-      id='form-input-control-error-email'
-      control={Input}
-      label='Email'
-      placeholder='joe@schmoe.com'
-      onChange={this.handelChangeEmail}
-    />
-    <Form.Field
-      id='form-input-control-error-email'
-      control={Input}
-      label='Password'
-      onChange={this.handelChangePwd}
-    />
-    <Form.Field
-      id='form-button-control-public'
-      control={Button}
-      content='Confirm'
-      label='Label with htmlFor'
-      
-    />
-  </Form>
+      {error && <Alert variant='danger'>
+          Mot de passe ou email incorrect !!
+          </Alert>}
+      <Form.Group controlId="formBasicEmail">
+        <Form.Label>Email address</Form.Label>
+        <Form.Control type="text" placeholder="Enter email" onChange={this.handelChangeEmail} value={email} />
+        <Form.Text className="text-muted">
+          We'll never share your email with anyone else.
+          
+        </Form.Text>
+      </Form.Group>
+
+      <Form.Group controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control type="password" placeholder="Password" onChange={this.handelChangePwd} value={password} />
+      </Form.Group>
+      <Form.Group controlId="formBasicCheckbox">
+        <Form.Check type="checkbox" label="Check me out" />
+      </Form.Group>
+      <Button variant="primary" type="submit" >
+        Submit
+      </Button>
+    </Form>
+    </div>
   )
 };
 };
@@ -59,6 +69,7 @@ render(){
 
 const maStateToProps = (state)=>{
   return{
+    token:state.token,
     loading: state.loading,
     error: state.error
   }
