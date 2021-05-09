@@ -15,11 +15,12 @@ const authStart = (state,action)=>{
 };
 
 const authSuccess =(state,action) =>{
-    return updateObject(state,{
-        token:action.token,
+    return {
+        ...state,
+        token: action.token,
         error: null,
         loading:false
-    });
+    };
 };
 
 const authFail =(state,action)=>{
@@ -36,7 +37,7 @@ const authLogout =(state,action)=>{
 };
 
 const reducer = (state=initialState,action)=>{
-    switch(actionTypes){
+    switch(action.type){
         case actionTypes.AUTH_START:
             return authStart(state,action);
         case actionTypes.AUTH_SUCCESS:

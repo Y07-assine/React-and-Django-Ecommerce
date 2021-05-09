@@ -26,6 +26,8 @@ urlpatterns = [
     path("product/<str:slug>", TemplateView.as_view(template_name='index.html')),
     path("login", TemplateView.as_view(template_name='index.html')),
     path("api/", include('home.api.urls')),
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
