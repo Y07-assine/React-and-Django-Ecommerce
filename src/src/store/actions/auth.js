@@ -17,7 +17,10 @@ export const authSuccess =(token)=>{
 export const logout =()=>{
     localStorage.removeItem("token");
     localStorage.removeItem("expirationDate");
-}
+    return {
+        type: actionTypes.AUTH_LOGOUT
+    };
+};
 
 export const authFail =(error)=>{
     return {
