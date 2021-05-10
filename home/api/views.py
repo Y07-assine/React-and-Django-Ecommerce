@@ -9,6 +9,11 @@ from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from django.db.models import F,Q
 from django.shortcuts import render ,get_object_or_404
 
+
+class UserIDView(APIView):
+    def get(self,request,*args,**kwargs):
+        return Response({'userID':request.user.id,'user':request.user},status=HTTP_200_OK)
+
 class ProductListView(ObjectMultipleModelAPIView):
 
     querylist = [

@@ -46,11 +46,15 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.openid',
     'rest_auth.registration',
     'rest_framework.authtoken',
 
 
 ]
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True # E-mail address is automatically confirmed by a GET request
+ACCOUNT_EMAIL_VERIFICATION = 'none' # Allow logins with an unverified e-mail address
 
 SITE_ID = 1
 

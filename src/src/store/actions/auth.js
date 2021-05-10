@@ -22,10 +22,11 @@ export const logout =()=>{
     };
 };
 
-export const authFail =(error)=>{
+export const authFail =(error,errorData)=>{
     return {
         type: actionTypes.AUTH_FAIL,
-        error: error
+        error: error,
+        errorData: errorData
     }
 }
 
@@ -77,7 +78,7 @@ export const authSignup = (username,email,password1,password2)=> async dispatch=
                 dispatch(checkAuthTimeout(3600));
             })
             .catch(err =>{
-                dispatch(authFail(err));
+                dispatch(authFail(err,err.response.data));
             });
     };
 
