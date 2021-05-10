@@ -9,6 +9,7 @@ import Newsletter from './components/Home/Newsletter';
 import Header from './components/Home/Header';
 import ProductDetails from './components/ProductDetails';
 import Login from './components/Login';
+import Signup from './components/Signup';
 import {connect} from 'react-redux';
 import {useEffect} from 'react';
 import * as actions from './store/actions/auth';
@@ -28,6 +29,7 @@ function App(props) {
           <Route exact path="/products/categorie/:category" render={(props)=><ListProducts {...props} key={Math.random()} />} />
           <Route exact path="/product/:slug" component={ProductDetails} />
           <Route exact path="/login/" component={Login} />
+          <Route exact path="/signup/" component={Signup} />
         </Switch>
         <Newsletter />
         <Footer />

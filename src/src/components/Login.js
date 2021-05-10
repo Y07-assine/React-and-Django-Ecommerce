@@ -23,8 +23,6 @@ class Login extends Component {
     this.setState({password: e.target.value});
   }
   handelSubmit =(e)=>{
-     console.log('received',this.state.email,this.state.password);
-     console.log('received',this.state.password);
      this.props.onAuth(this.state.email,this.state.password);
      e.preventDefault();
     }

@@ -77,13 +77,13 @@ class Header extends Component{
                                         <Dropdown.Menu>
                                         {this.props.isAuthenticated ?
                                         <>
-                                        <Dropdown.Item href="#/action-1">user</Dropdown.Item>
+                                        <Dropdown.Item >user</Dropdown.Item>
                                         <Dropdown.Item onClick={()=>this.props.logout()}>Déconnexion</Dropdown.Item>
                                         </>
                                         : 
                                         <>
-                                        <Dropdown.Item href="#/action-1">Se Connecter</Dropdown.Item>
-                                        <Dropdown.Item >S'inscrire</Dropdown.Item>
+                                        <Dropdown.Item><Link to={`/login/`}>Se connecter</Link></Dropdown.Item>
+                                        <Dropdown.Item ><Link to={`/signup/`}>S'inscrire</Link></Dropdown.Item>
                                         </>
                                         }
                                         </Dropdown.Menu>
