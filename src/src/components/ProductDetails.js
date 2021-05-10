@@ -2,11 +2,13 @@ import React,{useEffect,useState} from 'react';
 import axios from 'axios';
 import Svg from './ui/Svg';
 import {addToCartURL} from '../Constant';
+import { authAxios } from '../utils';
 
 const ProductDetails=({match})=>{
     const [product,setproduct] =useState([]);
     const [flavor,setflavor] =useState([]);
     const [error,setError] =useState(null);
+    const [loading,setLoading] = useState(false);
     
     const slug = match.params.slug
     useEffect(() => {
@@ -52,6 +54,18 @@ const ProductDetails=({match})=>{
 
 
         }
+        function handelAddToCart(slug,flavor){
+            setLoading(true);
+            authAxios
+                .post(addToCartURL,{slug,flavor})
+                .then(res =>{
+                    console.log(res.data);
+                    setLoading(true);
+                })
+                .catch(err =>{
+                    setError(err);
+                });
+        };
     return(
         <div>
             <div id="breadcrumb">
@@ -119,7 +133,7 @@ const ProductDetails=({match})=>{
                                         </div>
                                     </div>
                                     <div className="col achat-product pt-3">
-                                        <input className="color-primary-bg font-size-14  btn-achat-product text-white" type="button" value="Ajouter au panier"/></div>
+                                        <input className="color-primary-bg font-size-14  btn-achat-product text-white" type="button" value="Ajouter au panier" onClick={handelAddToCart(product.slug,'Vanille')}/></div>
                                     </div>
                             </form>    
                                  <hr className="pt-4" />

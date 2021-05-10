@@ -50,7 +50,7 @@ class AddToCartView(APIView):
         slug = request.data.get('slug',None)
         flavor = request.data.get('variantflavor',None)
         quantity = request.data.get('quantite',1)
-        if (slug is None & flavor is None):
+        if (slug is None and flavor is None):
             return Response({"message":"Invalid request"},status=HTTP_400_BAD_REQUEST)
         product = get_object_or_404(Product, slug=slug) 
         order_prod, created = OrderProduct.objects.get_or_create(
