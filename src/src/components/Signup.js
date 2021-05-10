@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Form, Button ,Alert} from 'react-bootstrap';
+import { Form, Button ,Alert,Spinner} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import * as actions from '../store/actions/auth';
 import {Redirect} from 'react-router-dom';
+
 
 class Signup extends Component{
     constructor(){
@@ -38,18 +39,34 @@ class Signup extends Component{
          e.preventDefault();
         }
     render(){
-        
+        const {errorData,loading,token}=this.props;
+        if(token){
+          return <Redirect to="/login" />;
+        }
         return(
             <div className="container login-form">
                 <Form onSubmit={this.handelSubmit}>
-                {this.props.error && <Alert variant='danger'>
-                    {this.props.error.message}
+                  {loading && (
+                    <Spinner animation="border" role="status" variant="primary">
+                    <span className="sr-only">Loading...</span>
+                    </Spinner>
+                    )}
+                {errorData.non_field_errors && <Alert variant='danger'>
+                    {errorData.non_field_errors[0]}
                     </Alert>}
                 <Form.Group controlId="formBasicEmail">
+                {errorData.username && 
+                        <Alert variant='danger'>
+                          {errorData.username[0]}
+                        </Alert>}
                 <Form.Label>Username</Form.Label>
                 <Form.Control type="test" placeholder="Enter username" onChange={this.handelChangeUser}  />
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
+                    {errorData.email && 
+                        <Alert variant='danger'>
+                          {errorData.email[0]}
+                        </Alert>}
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email" placeholder="Enter email" onChange={this.handelChangeEmail}  />
                     <Form.Text className="text-muted">
@@ -59,6 +76,10 @@ class Signup extends Component{
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
+                      {errorData.password1 && 
+                        <Alert variant='danger'>
+                          {errorData.password1[0]}
+                        </Alert>}
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Password" onChange={this.handelChangePwd1} />
                 </Form.Group>
@@ -79,8 +100,10 @@ class Signup extends Component{
 }
 const maStateToProps = (state)=>{
     return{
+      token:state.token,
       loading: state.loading,
-      error: state.error
+      error: state.error,
+      errorData: state.errorData
     }
   }
   

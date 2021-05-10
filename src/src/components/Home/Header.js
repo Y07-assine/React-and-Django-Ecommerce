@@ -4,6 +4,8 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions/auth';
 import {Dropdown} from 'react-bootstrap';
+import axios from 'axios';
+import {userIdURL} from '../../Constant';
 
 class Header extends Component{
     constructor(props){
