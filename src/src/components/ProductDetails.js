@@ -12,7 +12,7 @@ const ProductDetails=({match})=>{
     
     const slug = match.params.slug
     useEffect(() => {
-        console.log(match.params.slug);
+        console.log(flavor)
         axios
             .get(`http://localhost:8000/api/product/${slug}`)
             .then(res=>{
@@ -54,16 +54,20 @@ const ProductDetails=({match})=>{
 
 
         }
-        function handelAddToCart(slug,flavor){
+        function handelAddToCart(slug){
+            var variantflavor = document.getElementById('saveur').value;
+            var quantity = parseInt(document.getElementById('quantite').value);
             setLoading(true);
+            console.log(slug);
             authAxios
-                .post(addToCartURL,{slug,flavor})
+                .post(addToCartURL,{slug,variantflavor,quantity})
                 .then(res =>{
                     console.log(res.data);
                     setLoading(true);
                 })
                 .catch(err =>{
                     setError(err);
+                    console.log(err.message);
                 });
         };
     return(
@@ -106,7 +110,7 @@ const ProductDetails=({match})=>{
                             </ul>
                             <h5 className="font-baloo font-size-24 color-grey2 py-3 ">Saveurs :</h5>
                             
-                            <form method="post">
+                            <form >
                             <select id="saveur" name="variantflavor">
                                 {flavor.map((flavor)=>(
                                     <option name="flavor" value={flavor.flavor}>{flavor.flavor}</option>
@@ -133,7 +137,7 @@ const ProductDetails=({match})=>{
                                         </div>
                                     </div>
                                     <div className="col achat-product pt-3">
-                                        <input className="color-primary-bg font-size-14  btn-achat-product text-white" type="button" value="Ajouter au panier" onClick={handelAddToCart(product.slug,'Vanille')}/></div>
+                                        <input className="color-primary-bg font-size-14  btn-achat-product text-white" type="button" value="Ajouter au panier" onClick={()=>{handelAddToCart(product.slug)}} /></div>
                                     </div>
                             </form>    
                                  <hr className="pt-4" />
