@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import Svg from '../ui/Svg';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import * as actions from '../../store/actions/auth';
+import {logout} from '../../store/actions/auth';
 import {Dropdown} from 'react-bootstrap';
 import axios from 'axios';
 import {userIdURL} from '../../Constant';
+import { fetchCart } from '../../store/actions/cart';
 
 class Header extends Component{
     constructor(props){
@@ -33,8 +34,13 @@ class Header extends Component{
     closeMenu(){
         this.setState({click:false});
     }
+    componentDidMount(){
+        this.props.fetchCart();
+    }
     render(){
         const {click} = this.state;
+        const {isAuthenticated,cart}=this.props;
+        console.log(cart);
         return(
             <div>
                 <header id="header" className="header">
@@ -77,7 +83,7 @@ class Header extends Component{
                                         </a>
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
-                                        {this.props.isAuthenticated ?
+                                        {isAuthenticated ?
                                         <>
                                         <Dropdown.Item >user</Dropdown.Item>
                                         <Dropdown.Item onClick={()=>this.props.logout()}>Déconnexion</Dropdown.Item>
@@ -147,7 +153,8 @@ class Header extends Component{
 
 const maStateToProps = state =>{
     return{
-      isAuthenticated: state.token !== null,
+      isAuthenticated: state.auth.token !== null,
+      cart: state.cart.shoppingCart,
       loading: state.loading,
       error: state.error
     }
@@ -155,7 +162,8 @@ const maStateToProps = state =>{
   
   const mapDispatchToProps = dispatch =>{
     return{
-      logout: () => dispatch(actions.logout())
+      logout: () => dispatch(logout()),
+      fetchCart:()=>dispatch(fetchCart())
     }
   }
 
