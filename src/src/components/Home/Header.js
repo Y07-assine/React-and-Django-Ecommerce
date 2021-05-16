@@ -155,8 +155,7 @@ const maStateToProps = state =>{
     return{
       isAuthenticated: state.auth.token !== null,
       cart: state.cart.shoppingCart,
-      loading: state.loading,
-      error: state.error
+      loading: state.cart.loading
     }
   }
   
