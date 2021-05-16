@@ -14,4 +14,4 @@ export const addToCartURL = `${endpoint}/add-to-cart/`;
 
 export const userIdURL =`${endpoint}/userid/`;
 
-export const orderSummaryURL = `${endpoint}/order-summary/`;
+export const orderSummaryURL = `${endpoint}/order-summary`;

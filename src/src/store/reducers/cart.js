@@ -17,7 +17,7 @@ const cartStart = (state,action)=>{
 const cartSuccess =(state,action) =>{
     return {
         ...state,
-        shoppingCart: action.token,
+        shoppingCart: action.data,
         error: null,
         loading:false
     };
