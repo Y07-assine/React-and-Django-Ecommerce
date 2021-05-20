@@ -5,7 +5,8 @@ from .views import (
     ProductFlavorView,
     AddToCartView,
     UserIDView,
-    OrderSummaryView
+    OrderSummaryView,
+    UserIDView
     )
 
 from django.urls import path
@@ -18,5 +19,6 @@ urlpatterns = [
     path('add-to-cart/',AddToCartView.as_view(),name='add-to-cart'),
     path('userid',UserIDView.as_view(),name='userid'),
     path('order-summary',OrderSummaryView.as_view(),name='order-summary'),
+    path('user-id',UserIDView.as_view(),name='user-id'),
 ]
 
