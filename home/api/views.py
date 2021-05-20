@@ -2,7 +2,7 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView
 from drf_multiple_model.views import ObjectMultipleModelAPIView
 from rest_framework.views import APIView 
 from home.models import Product,Category,ProductFlavor,Flavor,Brand,Order,OrderProduct
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated,IsAuthenticatedOrReadOnly
 from .serializers import ProductSerializer,CategorySerializer,BrandSerializer,ProductFlavorSerializer,OrderProductSerializer,OrderSerializer
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST,HTTP_404_NOT_FOUND
@@ -10,6 +10,9 @@ from django.db.models import F,Q
 from django.shortcuts import render ,get_object_or_404
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 class UserIDView(APIView):
@@ -56,6 +59,7 @@ class AddToCartView(APIView):
             return Response({"message":"Invalid request"},status=HTTP_400_BAD_REQUEST)
             
         product = get_object_or_404(Product, slug=slug) 
+        
         order_prod, created = OrderProduct.objects.get_or_create(
             product = product,
             user = request.user,
@@ -84,7 +88,7 @@ class AddToCartView(APIView):
 
 class OrderSummaryView(RetrieveAPIView):
     serializer_class = OrderSerializer
-    permission_classes = (IsAuthenticated,)
+    
 
     def get_object(self):
         try:
@@ -92,3 +96,5 @@ class OrderSummaryView(RetrieveAPIView):
             return order
         except ObjectDoesNotExist:
             return Response({"message":"You don't have an active order"},status=HTTP_400_BAD_REQUEST)
+
+    

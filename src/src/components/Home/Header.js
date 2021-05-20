@@ -35,7 +35,10 @@ class Header extends Component{
         this.setState({click:false});
     }
     componentDidMount(){
-        this.props.fetchCart();
+        if (this.props.isAuthenticated !== null){
+            this.props.fetchCart();
+        }
+        
     }
     render(){
         const {click} = this.state;
@@ -104,7 +107,7 @@ class Header extends Component{
                                 </div>
                                     <a href="#" className="icon__item">
                                         <Svg name={'shopping-basket'} size={40} />
-                                        <span id="cart__total">0</span>
+                                        <span id="cart__total">{cart ? cart.nomber_article : 0}</span>
                                     </a>
                                 </div>
                             </nav>
