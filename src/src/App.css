@@ -1185,3 +1185,16 @@ input::-webkit-inner-spin-button {
     margin-bottom: 5rem;
     font-size: 2rem;
 }
+
+@media only screen and (min-width: 576px){
+.modal-dialog {
+    max-width: 80%;
+}
+}
+.model-body{
+    margin: 2rem;
+}
+
+.model-header{
+    background: darkseagreen;
+}

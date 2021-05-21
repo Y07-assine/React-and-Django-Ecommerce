@@ -6,13 +6,15 @@ import { authAxios } from '../utils';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchCart } from '../store/actions/cart';
-import {Spinner} from 'react-bootstrap';
+import {Spinner,Card} from 'react-bootstrap';
+import Modal from "react-bootstrap/Modal";
 
 const ProductDetails=({match,refreshCart})=>{
     const [product,setproduct] =useState([]);
     const [flavor,setflavor] =useState([]);
     const [error,setError] =useState(null);
     const [loading,setLoading] = useState(false);
+    const [show,setShow] = useState(false)
     
     const slug = match.params.slug
     useEffect(() => {
@@ -66,8 +68,8 @@ const ProductDetails=({match,refreshCart})=>{
             authAxios
                 .post(addToCartURL,{slug,variantflavor,quantity})
                 .then(res =>{
-                    console.log("test");
                     refreshCart();
+                    setShow(true);
                     setLoading(false);
                 })
                 .catch(err =>{
@@ -82,6 +84,7 @@ const ProductDetails=({match,refreshCart})=>{
                         <span className="sr-only">Loading...</span>
                       </Spinner>
                     )}
+            
             <div id="breadcrumb">
                 <div>
                     <ul className="breadcrumb">
@@ -94,6 +97,33 @@ const ProductDetails=({match,refreshCart})=>{
             </div>
             <section className="pt-5 primary-banner">
                 <div className="container">
+                <Modal show={show}>
+                    <Modal.Header>PRODUIT AJOUTÉ AU PANIER AVEC SUCCÈS ! </Modal.Header>
+                    <Modal.Body>
+                    <div className="row">
+                            <div className="col-sm2">
+                                <img src={product.image} alt={product.title} id="cart__product" className="img-fluid" style={{display: 'flex', justifyContent: 'center', height: 120+'px', width: 120+'px'}} />
+                            </div>
+                            <div className="col-sm-6">
+                                <h5 className="font-baloo font-size-24 color-primary">{product.title}</h5>
+                                <small>{product.brand_name}</small>
+                                <h5 className=" font-size-16 color-primary mt-2">Flavor : <span className="color-grey"> </span></h5>
+                                <div className=" quantite_value">
+                                    <div >Quantité :</div>
+                                </div>
+                                <span className="font-baloo font-size-20 mt-3" id="price">Prix de l'unité :{product.price} <strong>
+                                    
+                                </strong></span>
+                            </div>
+                            <div className="col-sm-4 text-right">        
+                                <div className="col achat-product pt-3">
+                                    <input className="color-primary-bg font-size-14  btn-achat-product text-white" type="button" value="Commander" onClick={()=>{setShow(false)}} />
+                                    <input className=" font-size-14  btn-achat-product text-white" type="button" value="Continuer mes achats" onClick={()=>{setShow(false)}}  />
+                                </div>
+                            </div>
+                        </div>
+                    </Modal.Body>
+                </Modal>
                     <div className="row product-row">
                         <div className="col-sm-6 " >
                             <img src={product.image} alt={product.title} id="cart__product" className="img-fluid" style={{display: 'flex', justifyContent: 'center' }} />
