@@ -3,8 +3,12 @@ import axios from 'axios';
 import Svg from './ui/Svg';
 import {addToCartURL} from '../Constant';
 import { authAxios } from '../utils';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { fetchCart } from '../store/actions/cart';
+import {Spinner} from 'react-bootstrap';
 
-const ProductDetails=({match})=>{
+const ProductDetails=({match,refreshCart})=>{
     const [product,setproduct] =useState([]);
     const [flavor,setflavor] =useState([]);
     const [error,setError] =useState(null);
@@ -62,8 +66,9 @@ const ProductDetails=({match})=>{
             authAxios
                 .post(addToCartURL,{slug,variantflavor,quantity})
                 .then(res =>{
-                    console.log(res.data);
-                    setLoading(true);
+                    console.log("test");
+                    refreshCart();
+                    setLoading(false);
                 })
                 .catch(err =>{
                     setError(err);
@@ -72,6 +77,11 @@ const ProductDetails=({match})=>{
         };
     return(
         <div>
+            {loading && (
+                        <Spinner animation="border" role="status" variant="primary">
+                        <span className="sr-only">Loading...</span>
+                      </Spinner>
+                    )}
             <div id="breadcrumb">
                 <div>
                     <ul className="breadcrumb">
@@ -211,4 +221,15 @@ const ProductDetails=({match})=>{
     )
 }
 
-export default ProductDetails;
+const mapDispatchToProps = dispatch =>{
+    return{
+        refreshCart: ()=> dispatch(fetchCart())
+    };
+};
+
+export default withRouter(
+    connect(
+        null,
+        mapDispatchToProps
+    ) (ProductDetails)
+);

@@ -91,7 +91,9 @@ class OrderProduct(models.Model):
         return self.quantity 
 
     def get_total_product_discountprice(self):
-        return self.quantity * self.product.discount_price
+        if self.product.discount_price:
+            return self.quantity * self.product.discount_price
+        return 0
 
     def get_amount_saved(self):
         return self.get_total_product_price() - self.get_total_product_discountprice()
