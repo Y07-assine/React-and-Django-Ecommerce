@@ -3,18 +3,20 @@ import axios from 'axios';
 import Svg from './ui/Svg';
 import {addToCartURL} from '../Constant';
 import { authAxios } from '../utils';
-import { withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchCart } from '../store/actions/cart';
 import {Spinner,Card} from 'react-bootstrap';
 import Modal from "react-bootstrap/Modal";
 
-const ProductDetails=({match,refreshCart})=>{
+const ProductDetails=({match,refreshCart,isAuthenticated})=>{
     const [product,setproduct] =useState([]);
     const [flavor,setflavor] =useState([]);
     const [error,setError] =useState(null);
     const [loading,setLoading] = useState(false);
-    const [show,setShow] = useState(false)
+    const [show,setShow] = useState(false);
+    const [quantite,setQuantite] = useState(null);
+    const [variation,setVariation] = useState(null);
     
     const slug = match.params.slug
     useEffect(() => {
@@ -61,10 +63,16 @@ const ProductDetails=({match,refreshCart})=>{
 
         }
         function handelAddToCart(slug){
+            if(!isAuthenticated){
+                console.log("test")
+                window.location.replace("http://localhost:8000/login");
+            }
+            else{
             var variantflavor = document.getElementById('saveur').value;
             var quantity = parseInt(document.getElementById('quantite').value);
+            setQuantite(quantity);
+            setVariation(variantflavor);
             setLoading(true);
-            console.log(slug);
             authAxios
                 .post(addToCartURL,{slug,variantflavor,quantity})
                 .then(res =>{
@@ -76,6 +84,7 @@ const ProductDetails=({match,refreshCart})=>{
                     setError(err);
                     console.log(err.message);
                 });
+            }
         };
     return(
         <div>
@@ -107,11 +116,11 @@ const ProductDetails=({match,refreshCart})=>{
                             <div className="col-sm-6">
                                 <h5 className="font-baloo font-size-24 color-primary">{product.title}</h5>
                                 <small>{product.brand_name}</small>
-                                <h5 className=" font-size-16 color-primary mt-2">Flavor : <span className="color-grey"> </span></h5>
+                                <h5 className=" font-size-16 color-primary mt-2">Flavor : <span className="color-grey">{variation}</span></h5>
                                 <div className=" quantite_value">
-                                    <div >Quantité :</div>
+                                    <div >Quantité :{quantite}</div>
                                 </div>
-                                <span className="font-baloo font-size-20 mt-3" id="price">Prix de l'unité :{product.price} <strong>
+                                <span className="font-baloo font-size-20 mt-3" id="price">Prix de l'unité :{product.discount_price ? product.discount_price : product.price} <strong>
                                     
                                 </strong></span>
                             </div>
@@ -251,6 +260,12 @@ const ProductDetails=({match,refreshCart})=>{
     )
 }
 
+const mapStateToProps = state =>{
+    return{
+      isAuthenticated: state.auth.token !== null
+    }
+  }
+
 const mapDispatchToProps = dispatch =>{
     return{
         refreshCart: ()=> dispatch(fetchCart())
@@ -259,7 +274,7 @@ const mapDispatchToProps = dispatch =>{
 
 export default withRouter(
     connect(
-        null,
+        mapStateToProps,
         mapDispatchToProps
     ) (ProductDetails)
 );
