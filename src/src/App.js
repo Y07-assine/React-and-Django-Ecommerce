@@ -13,6 +13,7 @@ import Signup from './components/Signup';
 import {connect} from 'react-redux';
 import {useEffect} from 'react';
 import * as actions from './store/actions/auth';
+import OrderSummary from './components/OrderSummary';
 
 
 function App(props) {
@@ -30,6 +31,7 @@ function App(props) {
           <Route exact path="/product/:slug" component={ProductDetails} />
           <Route exact path="/login/" component={Login} />
           <Route exact path="/signup/" component={Signup} />
+          <Route exact path="/order-summary/" component={OrderSummary} />
         </Switch>
         <Newsletter />
         <Footer />
