@@ -2,13 +2,13 @@ import React,{useEffect,useState} from 'react';
 import { connect } from "react-redux";
 import { fetchCart } from '../store/actions/cart';
 import { withRouter } from "react-router-dom";
-const OrderSummary = (isAuthenticated,cart,refreshCart,fetchCart)=>{
+const OrderSummary = ({isAuthenticated,cart,fetchCart})=>{
 
     useEffect(() => {
-        if (isAuthenticated){
+        if(isAuthenticated){
             fetchCart();
         }
-        console.log(cart.shoppingCart.order_products);
+        console.log(cart);
     }, [])
 
     return(
@@ -103,8 +103,7 @@ const mapStateToProps = state =>{
 
 const mapDispatchToProps = dispatch =>{
     return{
-        refreshCart: ()=> dispatch(fetchCart()),
-        fetchCart:()=>dispatch(fetchCart())
+        fetchCart: ()=> dispatch(fetchCart())
     };
 };
 
