@@ -1198,3 +1198,57 @@ input::-webkit-inner-spin-button {
 .model-header{
     background: darkseagreen;
 }
+
+/*
+=========
+panier
+=========
+*/
+.panier_achat{
+    display: flex;
+    justify-content: space-between;
+}
+.panier_achat h5{
+    font-size: 35px;
+}
+
+.btn-back-to-achat,.btn-paiement{
+    width: 220px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: 400;
+    border-radius: 0.3rem;
+    transition: transform .5s ease;
+}
+.btn-back-to-achat{
+    color: var(--primaryColor);
+    background-color: var(--white);
+}
+.btn-paiement{
+    color: white;
+    background-color: var(--primaryColor);
+}
+.btn-back-to-achat:hover,
+.btn-paiement:hover{
+    background-color: var(--color-sec);
+}
+@media only screen and (max-width:840px){
+    .panier_achat{
+        display: block;
+    }
+    .btn-back-to-achat,.btn-paiement{
+        width: 100%;
+    }
+    .btn-panier{
+        margin-top: 2rem;
+    }
+}
+
+.panier_description,.total{
+    display: flex;
+    justify-content: space-between;
+
+    background-color: whitesmoke;
+    height: 35px;
+    align-items: center;
+}

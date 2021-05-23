@@ -43,7 +43,6 @@ class Header extends Component{
     render(){
         const {click} = this.state;
         const {isAuthenticated,cart}=this.props;
-        console.log(cart);
         return(
             <div>
                 <header id="header" className="header">
