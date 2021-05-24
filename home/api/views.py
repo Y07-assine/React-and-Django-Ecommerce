@@ -85,6 +85,29 @@ class AddToCartView(APIView):
             order.products.add(order_prod)
         return Response(status=HTTP_200_OK)
 
+class RemoveFromCartView(APIView):
+    def post(self,request, *args, **kwargs):
+        slug = request.data.get('slug',None)
+        flavor = request.data.get('variantflavor',None)
+        product = get_object_or_404(Product, slug=slug)
+        order_qs = Order.objects.filter(user=request.user, ordered=False)
+        if order_qs.exists():
+            order = order_qs[0]
+            if order.products.filter(product__slug=product.slug).exists():
+                order_prod=OrderProduct.objects.filter(
+                    product = product,
+                    flavor = flavor,
+                    user = request.user,
+                    ordered = False
+                    )[0]
+                order.products.remove(order_prod)
+                order_prod.delete()
+                return Response(status=HTTP_200_OK)
+            else:
+                return Response({"message":"Invalid request"},status=HTTP_400_BAD_REQUEST)
+                
+        else:
+            return Response({"message":"Invalid request"},status=HTTP_400_BAD_REQUEST)
 
 class OrderSummaryView(RetrieveAPIView):
     serializer_class = OrderSerializer

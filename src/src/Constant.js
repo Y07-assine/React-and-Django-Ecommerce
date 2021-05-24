@@ -12,6 +12,8 @@ export const ProductFlavorURL =`${endpoint}/flavor/`;
 
 export const addToCartURL = `${endpoint}/add-to-cart/`;
 
+export const removeFormCartURL =`${endpoint}/remove-from-cart/`;
+
 export const userIdURL =`${endpoint}/userid/`;
 
 export const orderSummaryURL = `${endpoint}/order-summary`;
