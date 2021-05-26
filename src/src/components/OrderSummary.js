@@ -2,18 +2,30 @@ import React,{useEffect,useState} from 'react';
 import { connect } from "react-redux";
 import { fetchCart } from '../store/actions/cart';
 import { withRouter } from "react-router-dom";
+import { removeFormCartURL } from '../Constant';
+import { authAxios } from '../utils';
 const OrderSummary = ({isAuthenticated,cart,fetchCart})=>{
 
     useEffect(() => {
         if(isAuthenticated){
             fetchCart();
         }
-        
-        
-        
-    }, [])
+   
+    }, []);
+
     function handelRemoveFromCart(e){
-        console.log(e.target);
+        var id = e.target.id;
+        authAxios
+            .delete(removeFormCartURL(id))
+            .then(res =>{
+                fetchCart();
+            })
+            .catch(err =>{
+                console.log(err.message);
+            });
+    }
+    function handelAddProduct(slug){
+        console.log(slug);
     }
     return(
         
@@ -34,7 +46,7 @@ const OrderSummary = ({isAuthenticated,cart,fetchCart})=>{
                                 <hr className="m-0 color-primary-bg" />
                                 {cart.order_products.map(order=>(
                                 <>
-                                <div className="row py-5 ">
+                                <div className="row py-5 " key={order.id}>
                                     <div className="col-sm2">
                                         <img src={order.product.image} alt={order.product.slug} id="cart__product" className="img-fluid" style={{display: 'flex', justifyContent: 'center' ,height: 120+'px', width: 120+'px' }}/>
                                     </div>
@@ -44,16 +56,16 @@ const OrderSummary = ({isAuthenticated,cart,fetchCart})=>{
                                         <h5 className=" font-size-16 color-primary mt-2">Flavor : <span className="color-grey">{order.flavor} </span></h5>
                                         <div className=" quantite_value">
                                             <div >Quantité :
-                                                <button data-id="prod1" className="diminue_qt"><a href="{% url 'core:remove_single_product_from_cart' slug=order_product.product.slug  flavor=order_product.flavor%}">-</a></button>
-                                                <input data-id="prod1" id="quantite" type="number" min="1" value={order.quantity} className="quantite__input" />
-                                                <button data-id="prod1" className="augmente_qt"  ><a href="{% url 'core:add_single_product_to_cart' slug=order_product.product.slug  flavor=order_product.flavor%}">+</a></button>
+                                            <input id="prod1" className="diminue_qt" onClick={handelAddProduct(order.product.slug)} type="button" value="-" />
+                                            <input data-id="prod1" name="quantite" id="quantite" type="number" min="1" value={order.product.quantity} className="quantite__input" />
+                                            <input id="prod1" className="augmente_qt"  type="button" value="+" />
                                             </div>
                                         </div>
                                         <span className="font-baloo font-size-20 mt-3" id="price">Prix : <strong>
                                         {order.final_price}.00
                                         </strong></span>
                                         <div className="d-flex pt-2">                              
-                                            <a href="#" className="btn font-rale text-danger font-size-16 px-4 " onClick={handelRemoveFromCart}>Supprimer</a>
+                                            <span className="btn font-rale text-danger font-size-16 px-4 " id={order.id}  onClick={handelRemoveFromCart}>Supprimer</span>
                                         </div>
                                     </div>
                                     <div className="col-sm-2 text-right">
