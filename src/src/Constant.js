@@ -12,7 +12,7 @@ export const ProductFlavorURL =`${endpoint}/flavor/`;
 
 export const addToCartURL = `${endpoint}/add-to-cart/`;
 
-export const removeFormCartURL =`${endpoint}/remove-from-cart/`;
+export const removeFormCartURL= id =>`${endpoint}/remove-from-cart/${id}/`;
 
 export const userIdURL =`${endpoint}/userid/`;
 
