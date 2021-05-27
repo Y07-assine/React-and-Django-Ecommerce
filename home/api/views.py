@@ -71,7 +71,6 @@ class AddToCartView(APIView):
         if order_qs.exists():
             order = order_qs[0]
             if order.products.filter(product__slug=product.slug,flavor=flavor).exists():
-                print(quantity)
                 order_prod.quantity = order_prod.quantity + int(quantity)
                 order_prod.save()
                 
@@ -89,6 +88,37 @@ class OrderProductDeleteView(DestroyAPIView):
     permission_classes=(IsAuthenticated,)
     queryset = OrderProduct.objects.all()
 
+class RemoveFromCart(APIView):
+    def post(self,request, *args, **kwargs):
+        slug = request.data.get('slug',None)
+        flavor = request.data.get('variantflavor',None)
+        if slug is None and flavor is None:
+            return Response({"message":"Invalid request"},status=HTTP_400_BAD_REQUEST)
+            
+        product = get_object_or_404(Product, slug=slug) 
+        
+        order_prod = OrderProduct.objects.filter(
+            product = product,
+            user = request.user,
+            flavor = flavor,
+            ordered = False
+        )[0]
+        
+        order_qs = Order.objects.filter(user=request.user, ordered=False)
+        if order_qs.exists():
+            order = order_qs[0]
+            if order.products.filter(product__slug=product.slug,flavor=flavor).exists():
+                if order_prod.quantity > 1:
+                    order_prod.quantity -=1
+                    order_prod.save()
+                else:
+                    order.products.remove(order_prod)
+                    order_prod.delete()                
+            else:
+                return Response({"message":"Ce produit n'existe pas dans votre panier"},status=HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"message":"votre panier est vide"},status=HTTP_400_BAD_REQUEST)
+        return Response(status=HTTP_200_OK)
 
 class OrderSummaryView(RetrieveAPIView):
     serializer_class = OrderSerializer

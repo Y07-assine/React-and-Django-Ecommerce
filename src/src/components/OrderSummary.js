@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react';
 import { connect } from "react-redux";
 import { fetchCart } from '../store/actions/cart';
 import { withRouter } from "react-router-dom";
-import { removeFormCartURL } from '../Constant';
+import { removeFormCartURL,addToCartURL,updateOrderProductURL } from '../Constant';
 import { authAxios } from '../utils';
 const OrderSummary = ({isAuthenticated,cart,fetchCart})=>{
 
@@ -24,8 +24,32 @@ const OrderSummary = ({isAuthenticated,cart,fetchCart})=>{
                 console.log(err.message);
             });
     }
-    function handelAddProduct(slug){
-        console.log(slug);
+    function handelAddProduct(e){
+        var orderProduct=cart.order_products.filter(order=> order.id == e.target.id);
+        var slug = orderProduct[0].product.slug;
+        var variantflavor = orderProduct[0].flavor;
+        var quantity=1;
+        authAxios
+            .post(addToCartURL,{slug,variantflavor,quantity})
+            .then(res =>{
+                fetchCart();
+            })
+            .catch(err =>{
+                console.log(err.message);
+            });
+    }
+    function handelUpdateOrderProduct(e){
+        var orderProduct=cart.order_products.filter(order=> order.id == e.target.id);
+        var slug = orderProduct[0].product.slug;
+        var variantflavor = orderProduct[0].flavor;
+        authAxios
+            .post(updateOrderProductURL,{slug,variantflavor})
+            .then(res =>{
+                fetchCart();
+            })
+            .catch(err =>{
+                console.log(err.message);
+            });
     }
     return(
         
@@ -56,9 +80,9 @@ const OrderSummary = ({isAuthenticated,cart,fetchCart})=>{
                                         <h5 className=" font-size-16 color-primary mt-2">Flavor : <span className="color-grey">{order.flavor} </span></h5>
                                         <div className=" quantite_value">
                                             <div >Quantité :
-                                            <input id="prod1" className="diminue_qt" onClick={handelAddProduct(order.product.slug)} type="button" value="-" />
-                                            <input data-id="prod1" name="quantite" id="quantite" type="number" min="1" value={order.product.quantity} className="quantite__input" />
-                                            <input id="prod1" className="augmente_qt"  type="button" value="+" />
+                                            <input id="prod1" className="diminue_qt" type="button" value="-" onClick={handelUpdateOrderProduct} id={order.id} />
+                                            <input data-id="prod1" name="quantite" id="quantite" type="number" min="1" value={order.quantity} className="quantite__input" />
+                                            <input id="prod1" className="augmente_qt"  type="button" value="+" onClick={handelAddProduct} id={order.id} />
                                             </div>
                                         </div>
                                         <span className="font-baloo font-size-20 mt-3" id="price">Prix : <strong>
