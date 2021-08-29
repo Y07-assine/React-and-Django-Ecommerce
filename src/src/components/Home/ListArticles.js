@@ -5,8 +5,7 @@ import item2 from '../../img/article2.jpg';
 import item3 from '../../img/article3.jpg';
 
 
-class ListArticles extends Component{
-    render(){
+const ListArticles =()=>{
         return(
             <section>
                 <div className="container py-5 mt-5">
@@ -19,6 +18,6 @@ class ListArticles extends Component{
             </section>
         )
     }
-}
+
 
 export default ListArticles;

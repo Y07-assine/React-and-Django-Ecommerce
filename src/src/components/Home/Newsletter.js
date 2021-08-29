@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
 
-class Newslettre extends Component{
-    render(){
+const Newslettre =()=>{
         return(
 
             <section className="section newsletter" id="contact">
@@ -21,6 +20,6 @@ class Newslettre extends Component{
             </section>
         )
     }
-}
+
 
 export default Newslettre;

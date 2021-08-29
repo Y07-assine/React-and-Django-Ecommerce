@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {Card} from 'react-bootstrap';
 
-class Article extends Component{
-    render(){
+const Article =()=>{
         return(
             <div>
                 <Card >
@@ -17,6 +16,5 @@ class Article extends Component{
             </div>
         )
     }
-}
 
 export default Article;

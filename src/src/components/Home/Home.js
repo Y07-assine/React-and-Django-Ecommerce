@@ -6,9 +6,7 @@ import ListArticles from './ListArticles';
 
 
 
-class Home extends Component{
-    
-    render(){
+const Home =()=>{
   
         return(
             <>
@@ -21,6 +19,5 @@ class Home extends Component{
             </>
         )
     }
-}
 
 export default Home;

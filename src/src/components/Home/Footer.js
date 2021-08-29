@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Svg from '../ui/Svg';
 
-class Footer extends Component{
-    render(){
+const Footer =()=>{
         return(
             <footer className="footer">
                 <div className="contianer">
@@ -66,6 +65,5 @@ class Footer extends Component{
         </footer>
         )
     }
-}
 
 export default Footer;

@@ -8,41 +8,32 @@ import axios from 'axios';
 import {userIdURL} from '../../Constant';
 import { fetchCart } from '../../store/actions/cart';
 
-class Header extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-            click:false,
-            searchbar:false,
-            display:false,
-            options:[],
-            search:""
-        };
-        this.handleClick=this.handleClick.bind(this);
-        this.closeMenu=this.closeMenu.bind(this);
-        this.handelLogout=this.handelLogout.bind(this);
-        
+const Header =(props)=>{
+    const [click, setclick] = useState(false);
+    const [searchBar, setsearchBar] = useState(false);
+    const [display, setdisplay] = useState(false);
+    const [options, setoptions] = useState([]);
+    const [search, setsearch] = useState('');
+
+    const handelLogout=()=>{
+        props.logout();
     }
 
-    handelLogout=()=>{
-        this.props.logout();
+    const handleClick=()=>{
+        setclick(!click)
     }
-
-    handleClick(){
-        this.setState({click:!this.state.click});
+    const closeMenu=()=>{
+        setclick(false);
     }
-    closeMenu(){
-        this.setState({click:false});
-    }
-    componentDidMount(){
-        if (this.props.isAuthenticated !== null){
-            this.props.fetchCart();
+    useEffect(() => {
+        if (props.isAuthenticated !== null){
+            props.fetchCart();
         }
+    }, []);
         
-    }
-    render(){
-        const {click} = this.state;
-        const {isAuthenticated,cart}=this.props;
+        
+    
+        const {isAuthenticated,cart}=props;
         return(
             <div>
                 <header id="header" className="header">
@@ -57,7 +48,7 @@ class Header extends Component{
                     <div className="navigation color-primary-bg" style={ {backgroundImage: "linear-gradient(-90deg,#1c6eab 20%,rgba(30,140,153,0.9) 60%,#1e8c99)"}}>
                         <div className="container">
                             <nav className="nav ">
-                                <div className="nav__hamburger navbar-toggler" onClick={this.handleClick}>
+                                <div className="nav__hamburger navbar-toggler" onClick={handleClick}>
                                     <Svg name={'menu'} size={40} />
                                 </div>
 
@@ -88,7 +79,7 @@ class Header extends Component{
                                         {isAuthenticated ?
                                         <>
                                         <Dropdown.Item >user</Dropdown.Item>
-                                        <Dropdown.Item onClick={()=>this.props.logout()}>Déconnexion</Dropdown.Item>
+                                        <Dropdown.Item onClick={()=>props.logout()}>Déconnexion</Dropdown.Item>
                                         </>
                                         : 
                                         <>
@@ -117,7 +108,7 @@ class Header extends Component{
                                     <a href="/" className="icon__item" >
                                         <Svg name={'home'} size={40} />
                                     </a>
-                                    <a href="#" className="close__toggle" onClick={this.closeMenu}>
+                                    <a href="#" className="close__toggle" onClick={closeMenu}>
                                         <Svg name={'cross'} size={40} />
                                     </a>
                                 </div>
@@ -151,8 +142,6 @@ class Header extends Component{
             </div>
         )
     }
-}
-
 const maStateToProps = state =>{
     return{
       isAuthenticated: state.auth.token !== null,
