@@ -4,6 +4,7 @@ import { fetchCart } from '../store/actions/cart';
 import { withRouter } from "react-router-dom";
 import { removeFormCartURL,addToCartURL,updateOrderProductURL } from '../Constant';
 import { authAxios } from '../utils';
+
 const OrderSummary = ({isAuthenticated,cart,fetchCart})=>{
 
     useEffect(() => {

@@ -21,3 +21,7 @@ export const userIdURL =`${endpoint}/userid/`;
 export const orderSummaryURL = `${endpoint}/order-summary`;
 
 export const userIDURL = `${endpoint}/user-id/`;
+
+export const singleProductURL = `${endpoint}/product`;
+
+export const loginURL =`${localhost}/login`;

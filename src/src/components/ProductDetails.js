@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import axios from 'axios';
 import Svg from './ui/Svg';
-import {addToCartURL} from '../Constant';
+import {addToCartURL,loginURL,ProductFlavorURL,singleProductURL} from '../Constant';
 import { authAxios } from '../utils';
 import { Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -22,7 +22,7 @@ const ProductDetails=({match,refreshCart,isAuthenticated})=>{
     useEffect(() => {
         console.log(flavor)
         axios
-            .get(`http://localhost:8000/api/product/${slug}`)
+            .get(`${singleProductURL}/${slug}`)
             .then(res=>{
                 setproduct(res.data);
             })
@@ -30,7 +30,7 @@ const ProductDetails=({match,refreshCart,isAuthenticated})=>{
                 setError(err);
             })
         axios
-            .get(`http://localhost:8000/api/flavor/${slug}`)
+            .get(`${ProductFlavorURL}${slug}`)
             .then(res=>{
                 setflavor(res.data);
             })
@@ -65,7 +65,7 @@ const ProductDetails=({match,refreshCart,isAuthenticated})=>{
         function handelAddToCart(slug){
             if(!isAuthenticated){
                 console.log("test")
-                window.location.replace("http://localhost:8000/login");
+                window.location.replace(`${loginURL}`);
             }
             else{
             var variantflavor = document.getElementById('saveur').value;

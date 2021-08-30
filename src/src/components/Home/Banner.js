@@ -7,10 +7,10 @@ const Banner =()=>{
             <div className="banner">
                 <Carousel>
                     <Carousel.Item>
-                        <img className="d-block w-100" src='/img/item2.jpg'/>
+                        <img className="d-block w-100" src='/images/item2.jpg'/>
                     </Carousel.Item>
                     <Carousel.Item>
-                        <img className="d-block w-100" src='/img/item2.jpg'/>
+                        <img className="d-block w-100" src='/images/item2.jpg'/>
                     </Carousel.Item>
                 </Carousel>
             </div>

@@ -1,11 +1,10 @@
 import React from 'react';
-import Icons from '../../img/sprite.svg';
 import PropTypes from 'prop-types';
 
 const Svg =({name,color,size}) =>{
     return (
         <svg fill={color} width={size} height={size}>
-           <use xlinkHref={`${Icons}#icon-${name}`} /> 
+           <use xlinkHref={`/images/sprite.svg#icon-${name}`} /> 
         </svg>
     );
 }

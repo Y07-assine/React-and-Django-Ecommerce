@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 
 
-<<<<<<< HEAD
 const Newslettre =()=>{
-=======
-class Newslettre extends Component{
-    render(){
->>>>>>> a1e9e11632996533da7a7d71772d7b837f8e2c6d
         return(
 
             <section className="section newsletter" id="contact">
@@ -25,10 +20,5 @@ class Newslettre extends Component{
             </section>
         )
     }
-<<<<<<< HEAD
-
-=======
-}
->>>>>>> a1e9e11632996533da7a7d71772d7b837f8e2c6d
 
 export default Newslettre;

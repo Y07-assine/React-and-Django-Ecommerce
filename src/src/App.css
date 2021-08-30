@@ -7,6 +7,9 @@ button,button:focus{
     outline: none!important;
 
 }
+.body{
+    overflow-x: hidden !important;
+}
 a {
      color: inherit;
     text-decoration: none;
@@ -381,7 +384,7 @@ Navigation Media Query
         height: 0;
     }
     .banner{
-      margin-top: 0;
+      margin-top: 0 !important;
     }
 }
 @media only screen and (max-width:1200px) {
@@ -901,13 +904,21 @@ NewsLetter
     height: 450px;
     transition: transform .5s ease;
 }
-.product:hover{
-    border:1rem;
-    border-radius:0.5rem;
-    border-color:var(--primaryColor);
-    transform: scale(1.1);
+.product{
+    border-radius: 1rem;
+  margin: 0.5rem;
+  position: relative;
+  display: block;
+  border-radius: 8px;
+  background-color: #fff;
+  height: 100%;
+  overflow: hidden;
+  box-shadow: 0 -0.2rem 2rem rgb(0 0 0 / 10%);
 }
 
+.item{
+    margin: 1rem;
+}
 .product img {
      width: 100%;
     height: 250px;

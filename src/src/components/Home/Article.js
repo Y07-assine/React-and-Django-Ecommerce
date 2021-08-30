@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import {Card} from 'react-bootstrap';
 
-const Article =()=>{
+const Article =(props)=>{
         return(
             <div>
                 <Card >
-                    <Card.Img variant="top" src={this.props.img} />
+                    <Card.Img variant="top" src={props.img} />
                     <Card.ImgOverlay>
                         <Card.Title>
-                            {this.props.cardTitle}
+                            {props.cardTitle}
                         </Card.Title>
                     </Card.ImgOverlay>
-                    <Card.Text>{this.props.text}</Card.Text>
+                    <Card.Text>{props.text}</Card.Text>
                 </Card>
             </div>
         )
