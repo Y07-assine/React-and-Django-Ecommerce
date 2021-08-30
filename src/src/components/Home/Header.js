@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React,{useEffect,useState} from 'react';
 import Svg from '../ui/Svg';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
