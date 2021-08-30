@@ -19,5 +19,4 @@ const ListArticles =()=>{
         )
     }
 
-
 export default ListArticles;
