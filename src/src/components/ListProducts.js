@@ -22,19 +22,25 @@ const ListProducts =(props)=>{
     const [brand, setbrand] = useState([]);
 
     useEffect(()=>{
+        console.log(Filtercategory);
         setloading(true);
         axios
             .get(listproductURL)
             .then(res=>{
-                setproducts(res.data.product);
+
+                if(Filtercategory !=='nutrition-sportive'){
+                    setproducts(res.data.product.filter(p=>p.category.indexOf(Filtercategory)>=0));
+                    setcount(products.length);
+                    console.log(products.length);
+                }else{
+                    setproducts(res.data.product);
+                    setcount(products.length);
+                }
                 setfiltredProduct(res.data.product);
                 setbrand(res.data.brand);
                 setcategory(res.data.category);
                 setloading(false);
-                if(Filtercategory !=='nutrition-sportive'){
-                    setproducts(products.filter(p=>p.category.indexOf(this.state.Filtercategory)>=0))
-                }
-                setcount(products.length);
+                
             })
             .catch(err=>{
                 seterror(err);

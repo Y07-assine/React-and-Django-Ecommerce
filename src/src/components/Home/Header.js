@@ -137,7 +137,7 @@ const Header =(props)=>{
                                     <Svg name={'search'} size={40} />
                                 </a>
                             </div>
-                                <a href="#" className="icon__item">
+                                <a href="/order-summary" className="icon__item">
                                     <Svg name={'shopping-basket'} size={40} />
                                     <span id="cart__total">{cart ? cart.nomber_article : 0}</span>
                                 </a>
